@@ -1,0 +1,3199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SSC Vocab Pro — Learn, Quiz &amp; Tenses</title>
+<meta name="description" content="Build SSC exam vocabulary with 100 high-yield words, interactive quizzes, flashcards, progress tracking, and a 12-tenses grammar lab.">
+<meta name="theme-color" content="#0f1221">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+/* ==========================================================================
+   DESIGN TOKENS & THEMES (Dark Default + Crisp Warm Light Mode)
+   ========================================================================== */
+:root {
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.16);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 20px 44px rgba(0, 0, 0, 0.38);
+  --transition: 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Midnight Slate / Indigo Dark Theme (Default) */
+  --bg: #0f1221;
+  --bg-grad: radial-gradient(circle at 15% 0%, rgba(99, 102, 241, 0.22), transparent 42%),
+             radial-gradient(circle at 88% 8%, rgba(45, 212, 191, 0.14), transparent 36%),
+             linear-gradient(180deg, #13172c 0%, #0f1221 55%, #0c0e1a 100%);
+  --surface: #171c33;
+  --surface-2: #202746;
+  --surface-hover: #283158;
+  --border: rgba(255, 255, 255, 0.11);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --text: #f3f5ff;
+  --text-muted: #a4aed0;
+  --text-dim: #7b86ad;
+  --accent: #a5b4fc;
+  --accent-solid: #6366f1;
+  --accent-ink: #0f1221;
+  --accent-soft: rgba(165, 180, 252, 0.16);
+  --ok: #2dd4bf;
+  --ok-bg: rgba(45, 212, 191, 0.15);
+  --ok-border: rgba(45, 212, 191, 0.55);
+  --no: #fb7185;
+  --no-bg: rgba(251, 113, 133, 0.16);
+  --no-border: rgba(251, 113, 133, 0.58);
+  --warn: #fbbf24;
+  --warn-bg: rgba(251, 191, 36, 0.15);
+  --pos-verb: #38bdf8;
+  --pos-adj: #c084fc;
+  --pos-noun: #34d399;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f6f5f0;
+  --bg-grad: radial-gradient(circle at 12% 0%, rgba(99, 102, 241, 0.08), transparent 40%),
+             radial-gradient(circle at 90% 6%, rgba(13, 148, 136, 0.08), transparent 36%),
+             linear-gradient(180deg, #f9f8f4 0%, #f3f2ec 100%);
+  --surface: #ffffff;
+  --surface-2: #f1f2f7;
+  --surface-hover: #e6e8f2;
+  --border: rgba(23, 32, 56, 0.11);
+  --border-strong: rgba(23, 32, 56, 0.22);
+  --text: #162038;
+  --text-muted: #52607d;
+  --text-dim: #74819c;
+  --accent: #4338ca;
+  --accent-solid: #4338ca;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(67, 56, 202, 0.1);
+  --ok: #0f766e;
+  --ok-bg: rgba(15, 118, 110, 0.11);
+  --ok-border: rgba(15, 118, 110, 0.5);
+  --no: #be123c;
+  --no-bg: rgba(190, 18, 60, 0.1);
+  --no-border: rgba(190, 18, 60, 0.5);
+  --warn: #b45309;
+  --warn-bg: rgba(217, 119, 6, 0.12);
+  --pos-verb: #0369a1;
+  --pos-adj: #7e22ce;
+  --pos-noun: #047857;
+  --shadow-sm: 0 2px 8px rgba(22, 32, 56, 0.06);
+  --shadow-md: 0 10px 26px rgba(22, 32, 56, 0.09);
+  --shadow-lg: 0 18px 38px rgba(22, 32, 56, 0.13);
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   BASE & LAYOUT
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg-grad) fixed;
+  color: var(--text);
+  font: 15.5px/1.55 var(--font-sans);
+  padding: env(safe-area-inset-top, 0px) 0 calc(28px + env(safe-area-inset-bottom, 0px));
+  overflow-x: hidden;
+}
+
+.shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 14px 16px 24px;
+}
+
+button, input, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-weight: 600;
+  transition: transform var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition), color var(--transition);
+}
+
+button:hover:not(:disabled) {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.78;
+}
+
+.btn-primary {
+  background: var(--accent-solid);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.32);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #5558e6;
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.42);
+}
+
+.btn-ok {
+  background: var(--ok-bg);
+  color: var(--ok);
+  border-color: var(--ok-border);
+}
+
+.btn-ok:hover:not(:disabled) {
+  background: var(--ok);
+  color: #0b161b;
+}
+
+.btn-danger {
+  background: var(--no-bg);
+  color: var(--no);
+  border-color: var(--no-border);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: var(--no);
+  color: #ffffff;
+}
+
+.btn-icon {
+  min-height: 38px;
+  min-width: 38px;
+  padding: 7px;
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+
+.btn-icon svg { width: 18px; height: 18px; }
+
+.btn-icon.active-star {
+  color: var(--warn);
+  background: var(--warn-bg);
+  border-color: rgba(251, 191, 36, 0.45);
+}
+
+.btn-icon.active-known {
+  color: var(--ok);
+  background: var(--ok-bg);
+  border-color: var(--ok-border);
+}
+
+/* ==========================================================================
+   HEADER & PROGRESS DASHBOARD
+   ========================================================================== */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent-solid), #2dd4bf);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.brand-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.dashboard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.dash-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.dash-known {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.dash-known strong {
+  color: var(--ok);
+  font-size: 1.05rem;
+}
+
+.dash-pct {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.progress-track {
+  height: 8px;
+  background: var(--surface-2);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--accent-solid), var(--ok));
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dash-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.stat-pill {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.stat-val {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   4-TAB NAVIGATION
+   ========================================================================== */
+.nav-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 5px;
+  border-radius: 18px;
+  margin-bottom: 16px;
+  position: sticky;
+  top: 8px;
+  z-index: 30;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-tab {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 13px;
+  padding: 9px 6px;
+  min-height: 46px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-direction: column;
+  gap: 3px;
+  position: relative;
+}
+
+.nav-tab:hover:not(.active) {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.nav-tab.active {
+  background: var(--accent-solid);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+.nav-tab-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-tab svg { width: 16px; height: 16px; }
+
+.nav-badge {
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+
+.nav-tab.active .nav-badge {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+@media (min-width: 560px) {
+  .nav-tab {
+    flex-direction: row;
+    font-size: 0.86rem;
+    gap: 6px;
+  }
+}
+
+/* ==========================================================================
+   CARDS & SHARED UI COMPONENTS
+   ========================================================================== */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp 0.24s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.search-wrap {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.search-wrap svg {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 17px;
+  height: 17px;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 40px 10px 40px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-input::placeholder { color: var(--text-dim); }
+.search-input:focus {
+  border-color: var(--accent-solid);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  outline: none;
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-height: 32px;
+  min-width: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.pill {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.pill.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.pill-count {
+  font-size: 0.72rem;
+  opacity: 0.82;
+  background: var(--surface-2);
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+}
+
+.pill.active .pill-count {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+.toolbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.select-ctrl {
+  min-height: 38px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toggle-btn {
+  min-height: 38px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.83rem;
+  background: var(--surface);
+}
+
+.toggle-btn.active {
+  background: var(--warn-bg);
+  color: var(--warn);
+  border-color: rgba(251, 191, 36, 0.45);
+}
+
+/* ==========================================================================
+   LEARN TAB: WORD CARDS
+   ========================================================================== */
+.word-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.word-card:hover {
+  border-color: var(--border-strong);
+}
+
+.word-card.is-known {
+  border-left: 3px solid var(--ok);
+}
+
+.wc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.wc-title-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.wc-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  padding: 2px 7px;
+  border-radius: 8px;
+}
+
+.wc-word {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+
+.pos-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+}
+
+.pos-Verb { color: var(--pos-verb); background: rgba(56, 189, 248, 0.13); }
+.pos-Adj  { color: var(--pos-adj);  background: rgba(192, 132, 252, 0.13); }
+.pos-Noun { color: var(--pos-noun); background: rgba(52, 211, 153, 0.13); }
+
+.wc-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.wc-body {
+  position: relative;
+  border-radius: 12px;
+  transition: filter 0.25s ease;
+}
+
+.wc-body.blurred {
+  cursor: pointer;
+  user-select: none;
+}
+
+.wc-body.blurred .blur-target {
+  filter: blur(7px);
+  opacity: 0.45;
+  transition: filter 0.22s ease, opacity 0.22s ease;
+}
+
+.wc-body.blurred::after {
+  content: "Tap to reveal meaning";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px dashed var(--accent);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.wc-meaning {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 4px 0 5px;
+}
+
+.wc-sentence {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.wc-sentence b {
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-soft);
+  text-underline-offset: 3px;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.chip {
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+
+.chip-syn {
+  border-color: rgba(45, 212, 191, 0.28);
+}
+.chip-syn span { color: var(--ok); font-weight: 800; margin-right: 3px; }
+
+.chip-ant {
+  border-color: rgba(251, 113, 133, 0.28);
+}
+.chip-ant span { color: var(--no); font-weight: 800; margin-right: 3px; }
+
+.miss-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--no);
+  background: var(--no-bg);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+}
+
+/* ==========================================================================
+   QUIZ TAB
+   ========================================================================== */
+.setup-group {
+  margin-bottom: 14px;
+}
+
+.setup-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.seg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 7px;
+}
+
+.seg-btn {
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  padding: 10px 8px;
+}
+
+.seg-btn.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 11px 14px;
+  margin-bottom: 16px;
+}
+
+.switch-meta strong { display: block; font-size: 0.9rem; }
+.switch-meta small { color: var(--text-muted); font-size: 0.78rem; }
+
+.switch {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  min-height: 28px;
+  border-radius: var(--radius-pill);
+  background: var(--border-strong);
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.22s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+
+.switch.on {
+  background: var(--accent-solid);
+}
+
+.switch.on::after {
+  transform: translateX(20px);
+}
+
+.quiz-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.quiz-badges {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.q-pill {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.q-pill.streak {
+  color: var(--warn);
+  background: var(--warn-bg);
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+.q-pill.timer-warn {
+  color: var(--warn);
+  border-color: var(--warn);
+}
+
+.q-pill.timer-danger {
+  color: var(--no);
+  background: var(--no-bg);
+  border-color: var(--no);
+  animation: pulse 0.7s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+
+.timer-bar-wrap {
+  height: 5px;
+  background: var(--surface-2);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin: 6px 0 12px;
+}
+
+.timer-bar-fill {
+  height: 100%;
+  background: var(--ok);
+  transition: width 0.25s linear, background-color 0.25s ease;
+}
+
+.quiz-prompt {
+  font-size: 1.08rem;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.quiz-word-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.quiz-word-big {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.blank-slot {
+  display: inline-block;
+  min-width: 76px;
+  border-bottom: 2px dashed var(--accent);
+  color: var(--accent);
+  text-align: center;
+  font-weight: 700;
+  padding: 0 6px;
+}
+
+.opt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.opt-btn {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  font-weight: 600;
+  font-size: 0.96rem;
+  gap: 12px;
+}
+
+.opt-key {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.76rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.opt-btn.is-correct {
+  background: var(--ok-bg);
+  border-color: var(--ok);
+  color: var(--text);
+}
+
+.opt-btn.is-correct .opt-key {
+  background: var(--ok);
+  color: #0b161b;
+  border-color: var(--ok);
+}
+
+.opt-btn.is-wrong {
+  background: var(--no-bg);
+  border-color: var(--no);
+  color: var(--text);
+  animation: shake 0.3s ease;
+}
+
+.opt-btn.is-wrong .opt-key {
+  background: var(--no);
+  color: #ffffff;
+  border-color: var(--no);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.feedback-card {
+  margin-top: 12px;
+  border-left: 4px solid var(--accent);
+}
+
+.feedback-card.ok { border-left-color: var(--ok); }
+.feedback-card.no { border-left-color: var(--no); }
+
+/* Result Ring */
+.result-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 0 6px;
+}
+
+.ring-wrap {
+  position: relative;
+  width: 136px;
+  height: 136px;
+  margin-bottom: 12px;
+}
+
+.ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: var(--surface-2);
+  stroke-width: 10;
+}
+
+.ring-fg {
+  fill: none;
+  stroke: var(--ok);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-pct {
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.ring-sub {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.ssc-score-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin: 6px 0 12px;
+}
+
+/* ==========================================================================
+   CARDS TAB: 3D FLIP FLASHCARDS
+   ========================================================================== */
+.fc-scene {
+  perspective: 1200px;
+  margin: 14px 0;
+}
+
+.fc-card {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  transform-style: preserve-3d;
+  transition: transform 0.56s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+
+.fc-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.fc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 26px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+}
+
+.fc-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+}
+
+.fc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.fc-center {
+  text-align: center;
+  padding: 14px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.fc-front-word {
+  font-size: clamp(1.85rem, 6vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  line-height: 1.15;
+}
+
+.fc-hint {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: center;
+  font-weight: 600;
+}
+
+.fc-back-meaning {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+}
+
+.fc-back-sentence {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 2px 0 6px;
+  max-width: 520px;
+}
+
+.fc-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.fc-controls button {
+  min-height: 48px;
+  border-radius: 16px;
+  font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   TENSES LAB TAB
+   ========================================================================== */
+.timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin: 16px 0 4px;
+  padding: 6px 8px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  top: 22px;
+  height: 3px;
+  background: var(--border-strong);
+  border-radius: 3px;
+  z-index: 0;
+}
+
+.tl-node {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border: none;
+  padding: 4px 10px;
+  flex-direction: column;
+  gap: 6px;
+  min-height: auto;
+  color: var(--text-muted);
+}
+
+.tl-node:hover { background: transparent; color: var(--text); }
+
+.tl-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 3px solid var(--border-strong);
+  transition: all 0.25s ease;
+}
+
+.tl-node.active {
+  color: var(--ok);
+}
+
+.tl-node.active .tl-dot {
+  background: var(--ok);
+  border-color: var(--surface);
+  box-shadow: 0 0 0 4px var(--ok-bg), 0 0 16px var(--ok);
+  transform: scale(1.15);
+}
+
+.tl-label {
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.verb-forms-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+}
+
+.vf-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 10px;
+}
+
+.vf-item span {
+  color: var(--text-dim);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.vf-item b { color: var(--accent); }
+
+.formula-badge {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ok);
+  background: var(--ok-bg);
+  border: 1px solid var(--ok-border);
+  padding: 4px 11px;
+  border-radius: 10px;
+  margin: 6px 0 8px;
+}
+
+.signal-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 12px;
+}
+
+.signal-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.struct-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0 12px;
+}
+
+.struct-row {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  background: var(--surface-2);
+  padding: 8px 11px;
+  border-radius: 11px;
+  font-size: 0.88rem;
+}
+
+.struct-tag {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
+
+.tag-pos { background: var(--ok-bg); color: var(--ok); }
+.tag-neg { background: var(--no-bg); color: var(--no); }
+.tag-int { background: var(--accent-soft); color: var(--accent); }
+
+.conj-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-top: 6px;
+}
+
+.conj-table td {
+  padding: 7px 6px;
+  border-top: 1px solid var(--border);
+}
+
+.conj-table td:first-child {
+  width: 28%;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.conj-table td:last-child {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.tense-quiz-cta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
+}
+
+@media (min-width: 520px) {
+  .tense-quiz-cta { grid-template-columns: 1fr 1fr; }
+}
+
+/* ==========================================================================
+   MODAL, TOAST & CONFETTI
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 10, 20, 0.72);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+}
+
+.modal-backdrop.open {
+  display: flex;
+  animation: fadeIn 0.18s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 440px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.modal-head h2 {
+  margin: 0;
+  font-size: 1.12rem;
+}
+
+.kbd-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 14px;
+  align-items: center;
+  font-size: 0.85rem;
+  margin: 10px 0 16px;
+  background: var(--surface-2);
+  padding: 12px;
+  border-radius: 14px;
+}
+
+kbd {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.reset-confirm-box {
+  background: var(--no-bg);
+  border: 1px solid var(--no-border);
+  border-radius: 14px;
+  padding: 12px;
+  margin-top: 12px;
+  display: none;
+}
+
+.reset-confirm-box.show { display: block; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 16px);
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 120;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 110;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 28px 16px;
+  color: var(--text-muted);
+}
+
+.empty-state h3 {
+  margin: 8px 0 6px;
+  color: var(--text);
+}
+
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.row-actions > button { flex: 1; min-width: 120px; }
+</style>
+</head>
+<body>
+<canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+<div class="shell">
+  <!-- Header -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">SV</div>
+      <div>
+        <h1>SSC Vocab Pro</h1>
+        <div class="brand-sub">100 High-Yield Words &bull; 12 Tenses Lab</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button id="themeBtn" class="btn-icon" aria-label="Toggle Light/Dark Theme" title="Toggle Theme"></button>
+      <button id="settingsBtn" class="btn-icon" aria-label="Settings and Shortcuts" title="Settings &amp; Shortcuts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Compact Progress Dashboard -->
+  <section class="dashboard" aria-label="Study Progress">
+    <div class="dash-top">
+      <div class="dash-known">Known <strong id="dashKnown">0</strong> / 100 words</div>
+      <div class="dash-pct" id="dashPct">0%</div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="dashBar" style="width: 0%"></div>
+    </div>
+    <div class="dash-stats">
+      <div class="stat-pill">
+        <span class="stat-label">Quiz Accuracy</span>
+        <span class="stat-val" id="dashAcc">—</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-label">Starred</span>
+        <span class="stat-val" id="dashStar">0 ★</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-label">Daily Streak</span>
+        <span class="stat-val" id="dashStreak">0 days</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-Tab Navigation -->
+  <nav class="nav-tabs" role="tablist" aria-label="Main Sections">
+    <button class="nav-tab active" id="tab-learn" role="tab" aria-selected="true" onclick="switchTab('learn')">
+      <span class="nav-tab-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span>Learn</span>
+      </span>
+      <span class="nav-badge" id="badgeLearn">100</span>
+    </button>
+    <button class="nav-tab" id="tab-quiz" role="tab" aria-selected="false" onclick="switchTab('quiz')">
+      <span class="nav-tab-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Quiz</span>
+      </span>
+      <span class="nav-badge" id="badgeQuiz">SSC</span>
+    </button>
+    <button class="nav-tab" id="tab-cards" role="tab" aria-selected="false" onclick="switchTab('cards')">
+      <span class="nav-tab-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <span>Cards</span>
+      </span>
+      <span class="nav-badge" id="badgeCards">100</span>
+    </button>
+    <button class="nav-tab" id="tab-tenses" role="tab" aria-selected="false" onclick="switchTab('tenses')">
+      <span class="nav-tab-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Tenses</span>
+      </span>
+      <span class="nav-badge">12</span>
+    </button>
+  </nav>
+
+  <!-- Main View Container -->
+  <main id="app" aria-live="polite"></main>
+</div>
+
+<!-- Lightweight Settings & Keyboard Shortcuts Modal -->
+<div class="modal-backdrop" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="settingsTitle">Settings &amp; Shortcuts</h2>
+      <button class="btn-icon" onclick="closeSettings()" aria-label="Close settings">✕</button>
+    </div>
+
+    <div style="font-size:0.84rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;">Keyboard Shortcuts</div>
+    <div class="kbd-grid">
+      <div><kbd>1</kbd> – <kbd>4</kbd></div><div>Select quiz option</div>
+      <div><kbd>Enter</kbd></div><div>Next quiz question</div>
+      <div><kbd>Space</kbd></div><div>Flip 3D flashcard</div>
+      <div><kbd>←</kbd> / <kbd>→</kbd></div><div>Still Learning / I Know It</div>
+    </div>
+
+    <div style="font-size:0.84rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;">Progress Data</div>
+    <button class="btn-danger" style="width:100%" onclick="toggleResetConfirm(true)">Reset All Saved Progress</button>
+
+    <div class="reset-confirm-box" id="resetConfirmBox">
+      <p style="margin:0 0 10px;font-size:0.86rem;font-weight:600;color:var(--no);">
+        Are you sure? This clears known words, starred words, accuracy stats, and daily streak.
+      </p>
+      <div class="row-actions">
+        <button onclick="toggleResetConfirm(false)">Cancel</button>
+        <button class="btn-danger" onclick="performReset()">Yes, Reset Everything</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Feedback -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ==========================================================================
+   1. COMPLETE 100-WORD SSC VOCABULARY DATASET (EXACT WORDS, MEANINGS, SENTENCES)
+      Enriched with Part of Speech, 2 Synonyms, and 1 Antonym
+   ========================================================================== */
+const RAW_WORDS = `Abandon|leave completely|He had to abandon the car in the flood.|Verb|Desert, Forsake|Keep
+Benevolent|kind and generous|The benevolent king gave food to the poor.|Adj|Kind, Charitable|Malevolent
+Candid|honest and direct|Give me your candid opinion about my essay.|Adj|Frank, Outspoken|Deceitful
+Diligent|hardworking and careful|A diligent student revises every day.|Adj|Industrious, Assiduous|Lazy
+Frugal|careful with money|She is frugal and saves half her salary.|Adj|Thrifty, Economical|Extravagant
+Eloquent|fluent and expressive|The eloquent speaker moved the crowd.|Adj|Articulate, Persuasive|Inarticulate
+Genuine|real and authentic|Check that the certificate is genuine.|Adj|Authentic, Original|Fake
+Humble|modest and polite|Despite his fame, he stays humble.|Adj|Modest, Meek|Arrogant
+Inevitable|certain to happen|Defeat looked inevitable after the early goals.|Adj|Unavoidable, Certain|Avoidable
+Jovial|cheerful and friendly|Our jovial uncle kept everyone laughing.|Adj|Cheerful, Genial|Gloomy
+Jeopardy|danger or risk|Reckless driving puts lives in jeopardy.|Noun|Peril, Hazard|Safety
+Keen|eager; sharp|She has a keen interest in maths.|Adj|Eager, Astute|Indifferent
+Lucid|clear and easy to understand|The teacher gave a lucid explanation.|Adj|Clear, Intelligible|Obscure
+Mundane|ordinary and dull|He escaped his mundane office routine on weekends.|Adj|Ordinary, Banal|Extraordinary
+Notorious|famous for something bad|The notorious thief was finally caught.|Adj|Infamous, Disreputable|Reputable
+Agile|quick and active|The agile cat jumped over the wall.|Adj|Nimble, Lively|Clumsy
+Confiscate|seize officially|Police will confiscate illegal goods.|Verb|Seize, Impound|Return
+Feeble|weak and fragile|The feeble old man needed a stick.|Adj|Weak, Frail|Strong
+Hostile|unfriendly and aggressive|The villagers were hostile to strangers.|Adj|Antagonistic, Bellicose|Friendly
+Impede|hinder or obstruct|Heavy rain can impede traffic.|Verb|Hinder, Obstruct|Facilitate
+Jubilant|extremely happy|Fans were jubilant after the win.|Adj|Overjoyed, Triumphant|Despondent
+Kindle|ignite; inspire|Good books kindle a love for reading.|Verb|Ignite, Spark|Extinguish
+Elated|very happy|She was elated to clear the exam.|Adj|Thrilled, Ecstatic|Depressed
+Haughty|arrogantly proud|The haughty manager ignored everyone.|Adj|Arrogant, Conceited|Humble
+Imminent|about to happen|Dark clouds showed that rain was imminent.|Adj|Impending, Forthcoming|Distant
+Intrepid|fearless and brave|The intrepid explorer crossed the desert.|Adj|Fearless, Dauntless|Cowardly
+Abrogate|repeal or cancel|The government decided to abrogate the old law.|Verb|Repeal, Revoke|Enact
+Deference|respectful regard|He spoke with deference to his elders.|Noun|Respect, Reverence|Disrespect
+Covenant|formal agreement|Both sides signed a covenant of peace.|Noun|Pact, Treaty|Disagreement
+Obnoxious|very unpleasant|His obnoxious behaviour annoyed everyone.|Adj|Offensive, Repulsive|Pleasant
+Proliferate|increase rapidly|Mobile shops proliferate in every town.|Verb|Multiply, Escalate|Dwindle
+Paradox|seeming contradiction|It is a paradox that silence can be loud.|Noun|Contradiction, Enigma|Consistency
+Colossal|extremely large|The film was a colossal success.|Adj|Gigantic, Mammoth|Tiny
+Inception|beginning or start|The company has grown since its inception.|Noun|Origin, Commencement|Conclusion
+Grandeur|magnificence|Tourists admire the grandeur of the Taj Mahal.|Noun|Splendour, Majesty|Simplicity
+Tramp|wander on foot|We had to tramp for miles to find water.|Verb|Trudge, Roam|Halt
+Consignee|receiver of goods|The consignee signed for the parcel.|Noun|Recipient, Addressee|Consignor
+Infatuation|foolish passion|His infatuation with the actress faded quickly.|Noun|Obsession, Crush|Aversion
+Momentous|very important|Independence was a momentous day for India.|Adj|Historic, Significant|Trivial
+Parsimonious|extremely stingy|The parsimonious owner refused to pay a bonus.|Adj|Stingy, Miserly|Generous
+Dense|thick or crowded|A dense fog covered the highway.|Adj|Thick, Compact|Sparse
+Ostracise|exclude from group|Don’t ostracise someone for being different.|Verb|Boycott, Banish|Welcome
+Lament|express sorrow|They lament the loss of their old home.|Verb|Mourn, Grieve|Celebrate
+Mutilate|damage severely|Vandals tried to mutilate the statue.|Verb|Maim, Disfigure|Restore
+Reluctant|unwilling or hesitant|He was reluctant to speak in public.|Adj|Hesitant, Unwilling|Eager
+Conciliation|settlement; reconciliation|Conciliation ended the long dispute.|Noun|Appeasement, Pacification|Confrontation
+Affluent|wealthy|She grew up in an affluent family.|Adj|Wealthy, Prosperous|Impoverished
+Erudite|highly learned|The erudite professor knew many subjects.|Adj|Scholarly, Learned|Ignorant
+Coax|persuade gently|She tried to coax the child to eat.|Verb|Persuade, Cajole|Dissuade
+Altercation|noisy argument|A brief altercation broke out at the market.|Noun|Quarrel, Dispute|Harmony
+Animosity|strong hostility|There is old animosity between the two families.|Noun|Hostility, Enmity|Goodwill
+Ratification|formal approval|The treaty awaits ratification by parliament.|Noun|Approval, Confirmation|Rejection
+Toxic|poisonous|Toxic gas leaked from the factory.|Adj|Poisonous, Venomous|Harmless
+Altruistic|selflessly concerned for others|His altruistic nature led him to volunteer.|Adj|Selfless, Philanthropic|Selfish
+Fatal|causing death|The accident proved fatal.|Adj|Deadly, Lethal|Harmless
+Harass|trouble repeatedly|It is illegal to harass anyone online.|Verb|Torment, Pester|Comfort
+Innuendo|indirect hint|She ignored his rude innuendo.|Noun|Insinuation, Implication|Directness
+Allay|reduce or calm|The doctor tried to allay my fears.|Verb|Alleviate, Soothe|Aggravate
+Inquisitive|curious|An inquisitive child asks many questions.|Adj|Curious, Prying|Indifferent
+Miserable|very unhappy|He felt miserable after failing.|Adj|Wretched, Dejected|Joyful
+Scary|frightening|The horror movie was really scary.|Adj|Terrifying, Eerie|Comforting
+Contentious|argumentative|Land reform is a contentious issue.|Adj|Controversial, Disputable|Agreeable
+Multilingual|speaking many languages|India is a multilingual country.|Adj|Polyglot, Multi-tongued|Monolingual
+Anecdote|short interesting story|He told an anecdote about his school days.|Noun|Tale, Narrative|Epic
+Stoic|unemotional and enduring|The stoic soldier did not complain of pain.|Adj|Unflinching, Impassive|Emotional
+Dipsomania|craving for alcohol|Dipsomania destroyed his health.|Noun|Alcoholism, Inebriety|Sobriety
+Philanthropist|charitable person|The philanthropist funded a new school.|Noun|Benefactor, Humanitarian|Misanthrope
+Pessimist|one who expects the worst|A pessimist sees a half-empty glass.|Noun|Cynic, Defeatist|Optimist
+Optimist|one who expects the best|An optimist believes tomorrow will be better.|Noun|Idealist, Believer|Pessimist
+Misogynist|hater of women|A misogynist insults women without reason.|Noun|Woman-hater, Chauvinist|Philogynist
+Misandrist|hater of men|A misandrist dislikes men without reason.|Noun|Man-hater, Anti-male|Philandrist
+Bibliophile|lover of books|The bibliophile spends all her money on books.|Noun|Bookworm, Book-lover|Bibliophobe
+Omniscient|all-knowing|No human is omniscient.|Adj|All-knowing, Wise|Ignorant
+Omnipotent|all-powerful|Many people believe God is omnipotent.|Adj|Almighty, Supreme|Powerless
+Altruist|selfless person|An altruist gives without expecting anything back.|Noun|Humanitarian, Do-gooder|Egoist
+Recluse|person living alone|The recluse never left his cabin.|Noun|Hermit, Solitary|Extrovert
+Atheist|one who disbelieves in God|An atheist does not believe in any god.|Noun|Nonbeliever, Skeptic|Theist
+Theist|one who believes in God|A theist prays every morning.|Noun|Believer, Devotee|Atheist
+Agnostic|unsure about God’s existence|An agnostic says the truth cannot be known.|Noun|Skeptic, Doubter|Gnostic
+Illegible|impossible to read|His handwriting is illegible.|Adj|Unreadable, Indecipherable|Legible
+Amiable|friendly and pleasant|Our amiable neighbour greets everyone.|Adj|Affable, Cordial|Hostile
+Arduous|difficult and tiring|The climb to the peak was arduous.|Adj|Strenuous, Gruelling|Effortless
+Belligerent|hostile and warlike|The belligerent nation threatened its neighbours.|Adj|Aggressive, Pugnacious|Peaceful
+Boisterous|noisy and energetic|Boisterous kids ran around the park.|Adj|Rowdy, Exuberant|Calm
+Coherent|logical and clear|Write a coherent paragraph with clear ideas.|Adj|Logical, Consistent|Incoherent
+Curtail|reduce or cut short|Rain forced us to curtail the trip.|Verb|Reduce, Shorten|Extend
+Deprive|keep from having|Don’t deprive children of education.|Verb|Strip, Bereave|Provide
+Eccentric|unconventional|The eccentric artist wore mismatched shoes.|Adj|Quirky, Peculiar|Conventional
+Ephemeral|lasting a short time|Fame can be ephemeral.|Adj|Transient, Fleeting|Permanent
+Garrulous|excessively talkative|The garrulous barber chatted nonstop.|Adj|Loquacious, Talkative|Taciturn
+Impeccable|flawless|Her English is impeccable.|Adj|Flawless, Faultless|Flawed
+Lethargic|sluggish and inactive|The heat made me lethargic.|Adj|Sluggish, Torpid|Energetic
+Meticulous|very careful|A meticulous clerk checks every detail.|Adj|Thorough, Scrupulous|Careless
+Obstinate|stubborn|The obstinate mule refused to move.|Adj|Stubborn, Headstrong|Flexible
+Pragmatic|practical|Take a pragmatic approach to the problem.|Adj|Practical, Realistic|Idealistic
+Resilient|quick to recover|Resilient people bounce back from failure.|Adj|Hardy, Adaptable|Fragile
+Scrutinize|examine closely|Auditors scrutinize every bill.|Verb|Inspect, Examine|Overlook
+Sporadic|occasional and irregular|Sporadic showers fell through the day.|Adj|Intermittent, Occasional|Continuous
+Trivial|unimportant|Don’t argue over trivial matters.|Adj|Insignificant, Petty|Significant
+Valiant|brave and courageous|The valiant firefighter saved three lives.|Adj|Courageous, Gallant|Cowardly`;
+
+const WORDS = RAW_WORDS.split("\n").map((line, idx) => {
+  const [w, m, s, pos, syn, ant] = line.split("|");
+  return { n: idx + 1, w, m, s, pos, syn: syn.split(", "), ant };
+});
+
+/* ==========================================================================
+   2. STATE & PERSISTENCE (sscv_pro + Legacy sscv Migration)
+   ========================================================================== */
+const DEFAULT_STATE = () => ({
+  theme: "dark",
+  words: {},
+  stats: { totalAns: 0, totalCorrect: 0, streak: 0, lastDate: null },
+  quizCfg: { mode: "mix", len: 10, timer: 0, pool: "all", ssc: false }
+});
+
+let state = DEFAULT_STATE();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem("sscv_pro");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      state = {
+        ...DEFAULT_STATE(),
+        ...parsed,
+        stats: { ...DEFAULT_STATE().stats, ...(parsed.stats || {}) },
+        quizCfg: { ...DEFAULT_STATE().quizCfg, ...(parsed.quizCfg || {}) },
+        words: parsed.words || {}
+      };
+    } else {
+      // Migrate legacy sscv progress if present
+      const legacyRaw = localStorage.getItem("sscv");
+      if (legacyRaw) {
+        const legacy = JSON.parse(legacyRaw);
+        Object.keys(legacy).forEach(w => {
+          const item = legacy[w];
+          if (item && typeof item === "object") {
+            state.words[w] = {
+              k: !!item.k,
+              star: false,
+              c: Number(item.c) || 0,
+              x: Number(item.x) || 0
+            };
+          }
+        });
+        saveState();
+      }
+    }
+  } catch (e) {
+    state = DEFAULT_STATE();
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem("sscv_pro", JSON.stringify(state));
+  } catch (e) { /* ignore quota or private mode errors */ }
+}
+
+function getWordMeta(w) {
+  if (!state.words[w]) state.words[w] = { k: false, star: false, c: 0, x: 0 };
+  return state.words[w];
+}
+
+const isKnown = w => !!(state.words[w] && state.words[w].k);
+const isStarred = w => !!(state.words[w] && state.words[w].star);
+const isWeak = w => !!(state.words[w] && state.words[w].x > 0 && !state.words[w].k);
+const missCount = w => (state.words[w] ? state.words[w].x : 0);
+
+function getDateStr(offsetDays = 0) {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function touchStreak() {
+  const today = getDateStr(0);
+  const yesterday = getDateStr(-1);
+  if (state.stats.lastDate === today) {
+    if (state.stats.streak < 1) state.stats.streak = 1;
+  } else if (state.stats.lastDate === yesterday) {
+    state.stats.streak = (state.stats.streak || 0) + 1;
+    state.stats.lastDate = today;
+  } else {
+    state.stats.streak = 1;
+    state.stats.lastDate = today;
+  }
+  saveState();
+}
+
+function getEffectiveStreak() {
+  const today = getDateStr(0);
+  const yesterday = getDateStr(-1);
+  if (state.stats.lastDate === today || state.stats.lastDate === yesterday) {
+    return state.stats.streak || 0;
+  }
+  return 0;
+}
+
+function recordAnswer(word, correct) {
+  const meta = getWordMeta(word);
+  if (correct) {
+    meta.c++;
+    if (meta.c >= 2 && meta.c > meta.x) meta.k = true;
+  } else {
+    meta.x++;
+  }
+  state.stats.totalAns++;
+  if (correct) state.stats.totalCorrect++;
+  touchStreak();
+  saveState();
+  updateDashboard();
+}
+
+/* ==========================================================================
+   3. HELPERS, SPEECH, THEME, TOAST & CONFETTI
+   ========================================================================== */
+const app = document.getElementById("app");
+let activeTab = "learn";
+let toastTimer = null;
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function escRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function boldWord(d) {
+  const re = new RegExp("\\b(" + escRegex(d.w) + ")\\b", "i");
+  return escHtml(d.s).replace(re, "<b>$1</b>");
+}
+
+function blankWord(d) {
+  const re = new RegExp("\\b" + escRegex(d.w) + "\\b", "i");
+  if (!re.test(d.s)) return null;
+  return escHtml(d.s).replace(re, '<span class="blank-slot">_____</span>');
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function speakWord(text) {
+  try {
+    if (!("speechSynthesis" in window)) {
+      showToast("Speech not supported in this browser");
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    const voices = window.speechSynthesis.getVoices();
+    const preferred = voices.find(v => /en[-_]IN/i.test(v.lang)) || voices.find(v => /^en/i.test(v.lang));
+    if (preferred) u.voice = preferred;
+    u.lang = preferred ? preferred.lang : "en-IN";
+    u.rate = 0.94;
+    window.speechSynthesis.speak(u);
+  } catch (e) {
+    showToast("Could not play audio");
+  }
+}
+
+function showToast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 2000);
+}
+
+const ICONS = {
+  sun: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+  moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`,
+  audio: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`,
+  star: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  starFill: `<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+  search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`
+};
+
+function applyTheme() {
+  document.documentElement.setAttribute("data-theme", state.theme);
+  const btn = document.getElementById("themeBtn");
+  btn.innerHTML = state.theme === "dark" ? ICONS.sun : ICONS.moon;
+  btn.title = state.theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode";
+}
+
+document.getElementById("themeBtn").addEventListener("click", () => {
+  state.theme = state.theme === "dark" ? "light" : "dark";
+  saveState();
+  applyTheme();
+});
+
+document.getElementById("settingsBtn").addEventListener("click", () => {
+  toggleResetConfirm(false);
+  document.getElementById("settingsModal").classList.add("open");
+});
+
+document.getElementById("settingsModal").addEventListener("click", e => {
+  if (e.target.id === "settingsModal") closeSettings();
+});
+
+function closeSettings() {
+  document.getElementById("settingsModal").classList.remove("open");
+}
+
+function toggleResetConfirm(show) {
+  document.getElementById("resetConfirmBox").classList.toggle("show", show);
+}
+
+function performReset() {
+  const keepTheme = state.theme;
+  state = DEFAULT_STATE();
+  state.theme = keepTheme;
+  try {
+    localStorage.removeItem("sscv_pro");
+    localStorage.removeItem("sscv");
+  } catch (e) {}
+  saveState();
+  closeSettings();
+  updateDashboard();
+  showToast("All progress reset");
+  switchTab(activeTab);
+}
+
+function updateDashboard() {
+  const knownCount = WORDS.filter(d => isKnown(d.w)).length;
+  const starredCount = WORDS.filter(d => isStarred(d.w)).length;
+  const learningCount = WORDS.length - knownCount;
+  const pct = Math.round((knownCount / WORDS.length) * 100);
+  const acc = state.stats.totalAns > 0
+    ? Math.round((state.stats.totalCorrect / state.stats.totalAns) * 100) + "%"
+    : "—";
+  const streak = getEffectiveStreak();
+
+  document.getElementById("dashKnown").textContent = knownCount;
+  document.getElementById("dashPct").textContent = pct + "%";
+  document.getElementById("dashBar").style.width = pct + "%";
+  document.getElementById("dashAcc").textContent = acc;
+  document.getElementById("dashStar").textContent = `${starredCount} ★`;
+  document.getElementById("dashStreak").textContent = `${streak} ${streak === 1 ? "day" : "days"}${streak > 0 ? " 🔥" : ""}`;
+  document.getElementById("badgeCards").textContent = learningCount > 0 ? learningCount : "100";
+}
+
+function launchConfetti() {
+  const canvas = document.getElementById("confettiCanvas");
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ["#6366f1", "#2dd4bf", "#fbbf24", "#fb7185", "#a5b4fc", "#38bdf8"];
+  const pieces = Array.from({ length: 85 }, () => ({
+    x: canvas.width * (0.2 + Math.random() * 0.6),
+    y: canvas.height * 0.25 + (Math.random() - 0.5) * 60,
+    vx: (Math.random() - 0.5) * 11,
+    vy: -Math.random() * 10 - 3,
+    size: 5 + Math.random() * 6,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    rot: Math.random() * Math.PI * 2,
+    vr: (Math.random() - 0.5) * 0.25,
+    alpha: 1
+  }));
+
+  const start = performance.now();
+  function frame(now) {
+    const elapsed = now - start;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.26;
+      p.rot += p.vr;
+      if (elapsed > 1700) p.alpha = Math.max(0, 1 - (elapsed - 1700) / 900);
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+      ctx.restore();
+    });
+    if (elapsed < 2650) {
+      requestAnimationFrame(frame);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ==========================================================================
+   4. TAB SWITCHING
+   ========================================================================== */
+function switchTab(tab) {
+  stopQuizTimer();
+  activeTab = tab;
+  ["learn", "quiz", "cards", "tenses"].forEach(t => {
+    const btn = document.getElementById("tab-" + t);
+    const on = t === tab;
+    btn.classList.toggle("active", on);
+    btn.setAttribute("aria-selected", on ? "true" : "false");
+  });
+  updateDashboard();
+  if (tab === "learn") renderLearn();
+  else if (tab === "quiz") renderQuizSetup();
+  else if (tab === "cards") initFlashcards();
+  else if (tab === "tenses") renderTensesLab();
+}
+
+/* ==========================================================================
+   5. TAB 1: LEARN
+   ========================================================================== */
+const learnState = {
+  query: "",
+  filter: "all", // all | learning | known | starred
+  sort: "num",   // num | alpha | weak
+  hideMeanings: false,
+  revealedSet: new Set()
+};
+
+function renderLearn() {
+  const counts = {
+    all: WORDS.length,
+    learning: WORDS.filter(d => !isKnown(d.w)).length,
+    known: WORDS.filter(d => isKnown(d.w)).length,
+    starred: WORDS.filter(d => isStarred(d.w)).length
+  };
+
+  app.innerHTML = `
+    <div class="search-wrap">
+      ${ICONS.search}
+      <input id="learnSearch" class="search-input" type="text" value="${escHtml(learnState.query)}" placeholder="Search word, meaning, or synonym…" autocomplete="off">
+      <button id="clearSearchBtn" class="search-clear" style="display:${learnState.query ? "inline-flex" : "none"}" aria-label="Clear search">×</button>
+    </div>
+
+    <div class="pill-row">
+      ${[
+        ["all", "All", counts.all],
+        ["learning", "Learning", counts.learning],
+        ["known", "Known", counts.known],
+        ["starred", "Starred ★", counts.starred]
+      ].map(([id, label, cnt]) => `
+        <button class="pill ${learnState.filter === id ? "active" : ""}" onclick="setLearnFilter('${id}')">
+          ${label} <span class="pill-count">${cnt}</span>
+        </button>
+      `).join("")}
+    </div>
+
+    <div class="toolbar-row">
+      <select id="learnSort" class="select-ctrl" aria-label="Sort vocabulary">
+        <option value="num" ${learnState.sort === "num" ? "selected" : ""}>Sort: #1–100</option>
+        <option value="alpha" ${learnState.sort === "alpha" ? "selected" : ""}>Sort: A–Z</option>
+        <option value="weak" ${learnState.sort === "weak" ? "selected" : ""}>Sort: Weakest First</option>
+      </select>
+      <button class="toggle-btn ${learnState.hideMeanings ? "active" : ""}" onclick="toggleHideMeanings()">
+        ${learnState.hideMeanings ? "👁 Show Meanings" : "🙈 Hide Meanings"}
+      </button>
+    </div>
+
+    <div id="learnList"></div>
+  `;
+
+  const searchEl = document.getElementById("learnSearch");
+  const clearEl = document.getElementById("clearSearchBtn");
+  searchEl.addEventListener("input", e => {
+    learnState.query = e.target.value;
+    clearEl.style.display = learnState.query ? "inline-flex" : "none";
+    renderLearnList();
+  });
+  clearEl.addEventListener("click", () => {
+    learnState.query = "";
+    searchEl.value = "";
+    clearEl.style.display = "none";
+    searchEl.focus();
+    renderLearnList();
+  });
+
+  document.getElementById("learnSort").addEventListener("change", e => {
+    learnState.sort = e.target.value;
+    renderLearnList();
+  });
+
+  renderLearnList();
+}
+
+function setLearnFilter(f) {
+  learnState.filter = f;
+  renderLearn();
+}
+
+function toggleHideMeanings() {
+  learnState.hideMeanings = !learnState.hideMeanings;
+  learnState.revealedSet.clear();
+  renderLearn();
+}
+
+function revealWordBody(word) {
+  if (!learnState.hideMeanings) return;
+  if (learnState.revealedSet.has(word)) learnState.revealedSet.delete(word);
+  else learnState.revealedSet.add(word);
+  renderLearnList();
+}
+
+function toggleStar(word, rerender = true) {
+  const m = getWordMeta(word);
+  m.star = !m.star;
+  saveState();
+  updateDashboard();
+  if (rerender) {
+    if (activeTab === "learn") renderLearn();
+    else if (activeTab === "cards") renderFlashcard();
+  }
+}
+
+function toggleKnown(word) {
+  const m = getWordMeta(word);
+  m.k = !m.k;
+  if (m.k) touchStreak();
+  saveState();
+  updateDashboard();
+  renderLearn();
+}
+
+function renderLearnList() {
+  const q = learnState.query.trim().toLowerCase();
+  let list = WORDS.filter(d => {
+    if (learnState.filter === "learning" && isKnown(d.w)) return false;
+    if (learnState.filter === "known" && !isKnown(d.w)) return false;
+    if (learnState.filter === "starred" && !isStarred(d.w)) return false;
+    if (!q) return true;
+    return (
+      d.w.toLowerCase().includes(q) ||
+      d.m.toLowerCase().includes(q) ||
+      d.syn.some(s => s.toLowerCase().includes(q)) ||
+      d.ant.toLowerCase().includes(q)
+    );
+  });
+
+  if (learnState.sort === "alpha") {
+    list.sort((a, b) => a.w.localeCompare(b.w));
+  } else if (learnState.sort === "weak") {
+    list.sort((a, b) => (missCount(b.w) - missCount(a.w)) || (Number(isKnown(a.w)) - Number(isKnown(b.w))) || (a.n - b.n));
+  } else {
+    list.sort((a, b) => a.n - b.n);
+  }
+
+  const container = document.getElementById("learnList");
+  if (!list.length) {
+    container.innerHTML = `
+      <div class="panel empty-state">
+        <div style="font-size:2rem">🔎</div>
+        <h3>No matching words</h3>
+        <p style="margin:0 0 12px;font-size:0.9rem;">Try clearing your search or switching the filter.</p>
+        <button class="btn-primary" onclick="learnState.query='';learnState.filter='all';renderLearn()">Show All 100 Words</button>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = list.map(d => {
+    const known = isKnown(d.w);
+    const starred = isStarred(d.w);
+    const misses = missCount(d.w);
+    const isBlurred = learnState.hideMeanings && !learnState.revealedSet.has(d.w);
+    return `
+      <article class="word-card ${known ? "is-known" : ""}">
+        <div class="wc-head">
+          <div class="wc-title-group">
+            <span class="wc-num">#${d.n}</span>
+            <span class="wc-word">${escHtml(d.w)}</span>
+            <span class="pos-tag pos-${d.pos}">${d.pos}</span>
+            ${misses > 0 && !known ? `<span class="miss-badge">Missed ${misses}×</span>` : ""}
+          </div>
+          <div class="wc-actions">
+            <button class="btn-icon" onclick="speakWord('${d.w}')" aria-label="Pronounce ${d.w}" title="Pronounce">${ICONS.audio}</button>
+            <button class="btn-icon ${starred ? "active-star" : ""}" onclick="toggleStar('${d.w}')" aria-label="Star ${d.w}" title="${starred ? "Remove star" : "Star word"}">${starred ? ICONS.starFill : ICONS.star}</button>
+            <button class="btn-icon ${known ? "active-known" : ""}" onclick="toggleKnown('${d.w}')" aria-label="Mark ${d.w} as known" title="${known ? "Known" : "Mark as known"}">${ICONS.check}</button>
+          </div>
+        </div>
+        <div class="wc-body ${isBlurred ? "blurred" : ""}" onclick="revealWordBody('${d.w}')">
+          <div class="blur-target">
+            <p class="wc-meaning">${escHtml(d.m)}</p>
+            <p class="wc-sentence">${boldWord(d)}</p>
+            <div class="chip-row">
+              <span class="chip chip-syn"><span>SYN</span>${escHtml(d.syn.join(" · "))}</span>
+              <span class="chip chip-ant"><span>ANT</span>${escHtml(d.ant)}</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+/* ==========================================================================
+   6. TAB 2: VOCABULARY QUIZ
+   ========================================================================== */
+let quiz = null;
+let quizTimerId = null;
+
+function stopQuizTimer() {
+  if (quizTimerId) {
+    clearInterval(quizTimerId);
+    quizTimerId = null;
+  }
+}
+
+function getQuizPool(poolType) {
+  if (poolType === "learning") return WORDS.filter(d => !isKnown(d.w));
+  if (poolType === "starred") return WORDS.filter(d => isStarred(d.w));
+  if (poolType === "weak") return WORDS.filter(d => missCount(d.w) > 0);
+  return WORDS;
+}
+
+function renderQuizSetup() {
+  stopQuizTimer();
+  quiz = null;
+  const cfg = state.quizCfg;
+  const poolCount = getQuizPool(cfg.pool).length;
+  const weakCount = getQuizPool("weak").length;
+  const starCount = getQuizPool("starred").length;
+  const learnCount = getQuizPool("learning").length;
+
+  const seg = (key, val, label) =>
+    `<button class="seg-btn ${cfg[key] === val ? "active" : ""}" onclick="setQuizCfg('${key}', ${JSON.stringify(val)})">${label}</button>`;
+
+  app.innerHTML = `
+    <div class="panel">
+      <div class="setup-group">
+        <div class="setup-label"><span>Quiz Mode</span></div>
+        <div class="seg-grid">
+          ${seg("mode", "mean", "Meaning")}
+          ${seg("mode", "fill", "Fill Blank")}
+          ${seg("mode", "rev", "Reverse")}
+          ${seg("mode", "mix", "Mixed")}
+        </div>
+      </div>
+
+      <div class="setup-group">
+        <div class="setup-label"><span>Questions</span></div>
+        <div class="seg-grid">
+          ${seg("len", 10, "10")}
+          ${seg("len", 25, "25")}
+          ${seg("len", 50, "50")}
+          ${seg("len", 100, "All 100")}
+        </div>
+      </div>
+
+      <div class="setup-group">
+        <div class="setup-label"><span>Timer per Question</span></div>
+        <div class="seg-grid">
+          ${seg("timer", 0, "Off")}
+          ${seg("timer", 10, "10s")}
+          ${seg("timer", 15, "15s")}
+          ${seg("timer", 30, "30s")}
+        </div>
+      </div>
+
+      <div class="setup-group">
+        <div class="setup-label">
+          <span>Word Pool</span>
+          <span style="color:var(--accent)">${poolCount} available</span>
+        </div>
+        <div class="seg-grid">
+          ${seg("pool", "all", `All (100)`)}
+          ${seg("pool", "learning", `Not Known (${learnCount})`)}
+          ${seg("pool", "starred", `Starred (${starCount})`)}
+          ${seg("pool", "weak", `Weakest (${weakCount})`)}
+        </div>
+      </div>
+
+      <div class="switch-row">
+        <div class="switch-meta">
+          <strong>SSC Exam Negative Marking</strong>
+          <small>+2 marks per correct answer, &minus;0.5 per wrong answer</small>
+        </div>
+        <button class="switch ${cfg.ssc ? "on" : ""}" role="switch" aria-checked="${cfg.ssc}" aria-label="Toggle SSC negative marking" onclick="setQuizCfg('ssc', ${!cfg.ssc})"></button>
+      </div>
+
+      ${poolCount === 0
+        ? `<div class="empty-state" style="padding:12px 0 4px;">
+             <p style="margin:0 0 10px;font-size:0.9rem;">No words in the <b>${cfg.pool}</b> pool yet.</p>
+             <button onclick="setQuizCfg('pool','all')">Switch to All 100</button>
+           </div>`
+        : `<button class="btn-primary" style="width:100%;min-height:48px;font-size:1rem;" onclick="startVocabQuiz()">
+             Start Quiz (${Math.min(cfg.len, poolCount)} Questions)
+           </button>`
+      }
+    </div>
+  `;
+}
+
+function setQuizCfg(key, val) {
+  state.quizCfg[key] = val;
+  saveState();
+  renderQuizSetup();
+}
+
+function buildQuestion(d, mode) {
+  let type = mode;
+  if (mode === "mix") {
+    const types = ["mean", "fill", "rev"];
+    type = types[Math.floor(Math.random() * types.length)];
+  }
+  if (type === "fill" && !blankWord(d)) type = "mean";
+
+  // Pick 3 distractors, preferring same Part of Speech when available for true SSC challenge
+  const samePos = WORDS.filter(x => x !== d && x.pos === d.pos);
+  const others = WORDS.filter(x => x !== d && x.pos !== d.pos);
+  const distractors = [...shuffle(samePos), ...shuffle(others)].slice(0, 3);
+  const options = shuffle([d, ...distractors]);
+  return { d, type, options };
+}
+
+function startVocabQuiz(customPool = null) {
+  const cfg = state.quizCfg;
+  const pool = customPool || getQuizPool(cfg.pool);
+  if (!pool.length) {
+    renderQuizSetup();
+    return;
+  }
+  const questions = shuffle(pool).slice(0, customPool ? customPool.length : cfg.len).map(d => buildQuestion(d, cfg.mode));
+  quiz = {
+    kind: "vocab",
+    questions,
+    idx: 0,
+    score: 0,
+    wrong: [],
+    streak: 0,
+    bestStreak: 0,
+    answered: false,
+    sscMarks: 0,
+    timeLeft: cfg.timer
+  };
+  renderVocabQuestion();
+}
+
+function renderVocabQuestion() {
+  stopQuizTimer();
+  if (!quiz) return;
+  if (quiz.idx >= quiz.questions.length) {
+    renderVocabResult();
+    return;
+  }
+
+  quiz.answered = false;
+  const q = quiz.questions[quiz.idx];
+  const cfg = state.quizCfg;
+  const progressPct = (quiz.idx / quiz.questions.length) * 100;
+
+  let promptHtml = "";
+  if (q.type === "mean") {
+    promptHtml = `
+      <div style="font-size:0.84rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;">Select the closest meaning</div>
+      <div class="quiz-word-line">
+        <span class="quiz-word-big">${escHtml(q.d.w)}</span>
+        <span class="pos-tag pos-${q.d.pos}">${q.d.pos}</span>
+        <button class="btn-icon" onclick="speakWord('${q.d.w}')" aria-label="Pronounce ${q.d.w}">${ICONS.audio}</button>
+      </div>`;
+  } else if (q.type === "fill") {
+    promptHtml = `
+      <div style="font-size:0.84rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Fill in the blank</div>
+      <div style="font-size:1.12rem;font-weight:600;">“${blankWord(q.d)}”</div>`;
+  } else {
+    promptHtml = `
+      <div style="font-size:0.84rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Which word matches this meaning?</div>
+      <div style="font-size:1.25rem;font-weight:800;color:var(--text);">“${escHtml(q.d.m)}”</div>
+      <div style="margin-top:6px;"><span class="pos-tag pos-${q.d.pos}">${q.d.pos}</span></div>`;
+  }
+
+  app.innerHTML = `
+    <div class="quiz-meta">
+      <span>Question ${quiz.idx + 1} / ${quiz.questions.length}</span>
+      <div class="quiz-badges">
+        <span class="q-pill">Score: ${quiz.score}</span>
+        ${cfg.ssc ? `<span class="q-pill" style="color:var(--accent)">SSC: ${quiz.sscMarks >= 0 ? "+" : ""}${quiz.sscMarks.toFixed(1)}</span>` : ""}
+        ${quiz.streak >= 2 ? `<span class="q-pill streak">🔥 ${quiz.streak}</span>` : ""}
+        ${cfg.timer > 0 ? `<span class="q-pill" id="quizTimerPill">⏱ ${cfg.timer}s</span>` : ""}
+      </div>
+    </div>
+    <div class="progress-track" style="margin-bottom:${cfg.timer > 0 ? "6px" : "14px"}">
+      <div class="progress-fill" style="width:${progressPct}%"></div>
+    </div>
+    ${cfg.timer > 0 ? `<div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div>` : ""}
+
+    <div class="panel">
+      <div class="quiz-prompt">${promptHtml}</div>
+      <div class="opt-list">
+        ${q.options.map((opt, idx) => `
+          <button class="opt-btn" id="qopt-${idx}" onclick="answerVocab(${idx})">
+            <span class="opt-key">${idx + 1}</span>
+            <span>${escHtml(q.type === "mean" ? opt.m : opt.w)}</span>
+          </button>
+        `).join("")}
+      </div>
+    </div>
+    <div id="quizFeedback"></div>
+  `;
+
+  if (cfg.timer > 0) startVocabTimer(cfg.timer);
+}
+
+function startVocabTimer(seconds) {
+  const start = performance.now();
+  const totalMs = seconds * 1000;
+  quizTimerId = setInterval(() => {
+    const elapsed = performance.now() - start;
+    const remMs = Math.max(0, totalMs - elapsed);
+    const remSec = Math.ceil(remMs / 1000);
+    const pct = (remMs / totalMs) * 100;
+
+    const pill = document.getElementById("quizTimerPill");
+    const bar = document.getElementById("timerBarFill");
+    if (pill) {
+      pill.textContent = `⏱ ${remSec}s`;
+      pill.classList.toggle("timer-danger", remSec <= 4);
+      pill.classList.toggle("timer-warn", remSec > 4 && remSec <= 8);
+    }
+    if (bar) {
+      bar.style.width = pct + "%";
+      bar.style.backgroundColor = remSec <= 4 ? "var(--no)" : remSec <= 8 ? "var(--warn)" : "var(--ok)";
+    }
+    if (remMs <= 0) {
+      stopQuizTimer();
+      answerVocab(-1);
+    }
+  }, 100);
+}
+
+function answerVocab(choiceIdx) {
+  if (!quiz || quiz.answered) return;
+  stopQuizTimer();
+  quiz.answered = true;
+
+  const q = quiz.questions[quiz.idx];
+  const isCorrect = choiceIdx >= 0 && q.options[choiceIdx] === q.d;
+
+  q.options.forEach((opt, idx) => {
+    const btn = document.getElementById("qopt-" + idx);
+    if (!btn) return;
+    btn.disabled = true;
+    if (opt === q.d) btn.classList.add("is-correct");
+    else if (idx === choiceIdx) btn.classList.add("is-wrong");
+  });
+
+  if (isCorrect) {
+    quiz.score++;
+    quiz.streak++;
+    quiz.bestStreak = Math.max(quiz.bestStreak, quiz.streak);
+    quiz.sscMarks += 2;
+    recordAnswer(q.d.w, true);
+  } else {
+    quiz.streak = 0;
+    quiz.wrong.push(q.d);
+    if (choiceIdx >= 0) quiz.sscMarks -= 0.5;
+    recordAnswer(q.d.w, false);
+  }
+
+  const starred = isStarred(q.d.w);
+  const statusTitle = isCorrect ? "Correct! ✓" : (choiceIdx === -1 ? "Time's Up ⏱" : "Not quite ✕");
+
+  document.getElementById("quizFeedback").innerHTML = `
+    <div class="panel feedback-card ${isCorrect ? "ok" : "no"}">
+      <div class="wc-head">
+        <div class="wc-title-group">
+          <strong style="color:${isCorrect ? "var(--ok)" : "var(--no)"}">${statusTitle}</strong>
+          <span class="wc-word" style="font-size:1.05rem">${escHtml(q.d.w)}</span>
+          <span class="pos-tag pos-${q.d.pos}">${q.d.pos}</span>
+        </div>
+        <div class="wc-actions">
+          <button class="btn-icon" onclick="speakWord('${q.d.w}')" aria-label="Pronounce ${q.d.w}">${ICONS.audio}</button>
+          <button id="fbStarBtn" class="btn-icon ${starred ? "active-star" : ""}" onclick="toggleQuizFeedbackStar('${q.d.w}')" aria-label="Star ${q.d.w}">${starred ? ICONS.starFill : ICONS.star}</button>
+        </div>
+      </div>
+      <p class="wc-meaning" style="margin-top:4px">${escHtml(q.d.m)}</p>
+      <p class="wc-sentence">${boldWord(q.d)}</p>
+      <div class="chip-row" style="margin-bottom:12px">
+        <span class="chip chip-syn"><span>SYN</span>${escHtml(q.d.syn.join(" · "))}</span>
+        <span class="chip chip-ant"><span>ANT</span>${escHtml(q.d.ant)}</span>
+      </div>
+      <button class="btn-primary" style="width:100%" onclick="nextVocabQuestion()">
+        ${quiz.idx + 1 < quiz.questions.length ? "Next Question (Enter) →" : "See Final Result (Enter)"}
+      </button>
+    </div>
+  `;
+}
+
+function toggleQuizFeedbackStar(word) {
+  toggleStar(word, false);
+  const btn = document.getElementById("fbStarBtn");
+  if (!btn) return;
+  const s = isStarred(word);
+  btn.classList.toggle("active-star", s);
+  btn.innerHTML = s ? ICONS.starFill : ICONS.star;
+}
+
+function nextVocabQuestion() {
+  if (!quiz) return;
+  quiz.idx++;
+  renderVocabQuestion();
+}
+
+function renderVocabResult() {
+  const total = quiz.questions.length;
+  const pct = Math.round((quiz.score / total) * 100);
+  const circ = 2 * Math.PI * 56;
+  const offset = circ * (1 - pct / 100);
+  const maxSsc = total * 2;
+  const msg = pct >= 90 ? "Outstanding mastery! 🏆"
+    : pct >= 80 ? "Excellent SSC readiness! 🎉"
+    : pct >= 55 ? "Solid progress — review the misses 👍"
+    : "Good warmup — revise and try again 💪";
+
+  app.innerHTML = `
+    <div class="panel">
+      <div class="result-hero">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 132 132">
+            <circle class="ring-bg" cx="66" cy="66" r="56"/>
+            <circle class="ring-fg" id="resRingFg" cx="66" cy="66" r="56"
+              stroke-dasharray="${circ}" stroke-dashoffset="${circ}"
+              style="stroke:${pct >= 80 ? "var(--ok)" : pct >= 50 ? "var(--accent-solid)" : "var(--no)"}"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-pct">${pct}%</span>
+            <span class="ring-sub">${quiz.score} / ${total}</span>
+          </div>
+        </div>
+        <h2 style="margin:0 0 4px;font-size:1.2rem;">${msg}</h2>
+        <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:8px;">Best Streak: ${quiz.bestStreak} in a row</div>
+        ${state.quizCfg.ssc ? `<div class="ssc-score-box">SSC Marks: ${quiz.sscMarks.toFixed(1)} / ${maxSsc}</div>` : ""}
+      </div>
+
+      <div class="row-actions" style="margin-top:10px;">
+        <button class="btn-primary" onclick="startVocabQuiz()">Retry Quiz</button>
+        ${quiz.wrong.length ? `<button class="btn-danger" onclick="retryWrongVocab()">Retry Wrong (${quiz.wrong.length})</button>` : ""}
+        <button onclick="renderQuizSetup()">Quiz Settings</button>
+      </div>
+    </div>
+
+    ${quiz.wrong.length ? `
+      <div style="font-size:0.86rem;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin:14px 4px 8px;">
+        Words to Revise (${quiz.wrong.length})
+      </div>
+      ${quiz.wrong.map(d => `
+        <div class="word-card">
+          <div class="wc-head">
+            <div class="wc-title-group">
+              <span class="wc-word">${escHtml(d.w)}</span>
+              <span class="pos-tag pos-${d.pos}">${d.pos}</span>
+            </div>
+            <div class="wc-actions">
+              <button class="btn-icon" onclick="speakWord('${d.w}')" aria-label="Pronounce ${d.w}">${ICONS.audio}</button>
+              <button class="btn-icon ${isStarred(d.w) ? "active-star" : ""}" onclick="toggleStar('${d.w}', false); this.classList.toggle('active-star', isStarred('${d.w}')); this.innerHTML = isStarred('${d.w}') ? ICONS.starFill : ICONS.star;" aria-label="Star ${d.w}">${isStarred(d.w) ? ICONS.starFill : ICONS.star}</button>
+            </div>
+          </div>
+          <p class="wc-meaning">${escHtml(d.m)}</p>
+          <p class="wc-sentence">${boldWord(d)}</p>
+        </div>
+      `).join("")}
+    ` : ""}
+  `;
+
+  // Animate score ring smoothly
+  requestAnimationFrame(() => {
+    const fg = document.getElementById("resRingFg");
+    if (fg) fg.style.strokeDashoffset = offset;
+  });
+
+  if (pct >= 80) launchConfetti();
+}
+
+function retryWrongVocab() {
+  if (!quiz || !quiz.wrong.length) return;
+  const wrongPool = quiz.wrong.slice();
+  startVocabQuiz(wrongPool);
+}
+
+/* ==========================================================================
+   7. TAB 3: 3D FLASHCARDS
+   ========================================================================== */
+const fcState = {
+  deckType: "learning", // learning | starred | all
+  queue: [],
+  doneCount: 0,
+  totalInitial: 0,
+  flipped: false,
+  history: []
+};
+
+function getFlashcardSource(type) {
+  if (type === "learning") return WORDS.filter(d => !isKnown(d.w));
+  if (type === "starred") return WORDS.filter(d => isStarred(d.w));
+  return WORDS;
+}
+
+function initFlashcards(type = fcState.deckType) {
+  fcState.deckType = type;
+  const src = getFlashcardSource(type);
+  fcState.queue = shuffle(src);
+  fcState.doneCount = 0;
+  fcState.totalInitial = fcState.queue.length;
+  fcState.flipped = false;
+  fcState.history = [];
+  renderFlashcard();
+}
+
+function renderFlashcard() {
+  const counts = {
+    learning: getFlashcardSource("learning").length,
+    starred: getFlashcardSource("starred").length,
+    all: WORDS.length
+  };
+
+  const deckPills = `
+    <div class="pill-row">
+      <button class="pill ${fcState.deckType === "learning" ? "active" : ""}" onclick="initFlashcards('learning')">
+        Learning Only <span class="pill-count">${counts.learning}</span>
+      </button>
+      <button class="pill ${fcState.deckType === "starred" ? "active" : ""}" onclick="initFlashcards('starred')">
+        Starred ★ <span class="pill-count">${counts.starred}</span>
+      </button>
+      <button class="pill ${fcState.deckType === "all" ? "active" : ""}" onclick="initFlashcards('all')">
+        All 100 <span class="pill-count">${counts.all}</span>
+      </button>
+    </div>
+  `;
+
+  if (fcState.totalInitial === 0) {
+    app.innerHTML = deckPills + `
+      <div class="panel empty-state">
+        <div style="font-size:2.2rem">${fcState.deckType === "learning" ? "🎉" : "⭐"}</div>
+        <h3>${fcState.deckType === "learning" ? "You know all 100 words!" : "No starred words yet"}</h3>
+        <p style="margin:0 0 14px;font-size:0.9rem;">
+          ${fcState.deckType === "learning" ? "Switch to All 100 to do a rapid refresher." : "Star words in the Learn tab to build a focused revision deck."}
+        </p>
+        <button class="btn-primary" onclick="initFlashcards('all')">Study All 100</button>
+      </div>`;
+    return;
+  }
+
+  if (fcState.queue.length === 0) {
+    app.innerHTML = deckPills + `
+      <div class="panel empty-state">
+        <div style="font-size:2.4rem">🎉</div>
+        <h3>Deck Completed!</h3>
+        <p style="margin:0 0 16px;font-size:0.92rem;">Great session! Every card in this deck has been mastered.</p>
+        <div class="row-actions">
+          <button class="btn-primary" onclick="initFlashcards('${fcState.deckType}')">Study Deck Again</button>
+          <button onclick="switchTab('quiz')">Take a Quiz</button>
+        </div>
+      </div>`;
+    launchConfetti();
+    return;
+  }
+
+  const d = fcState.queue[0];
+  const starred = isStarred(d.w);
+  const progressPct = Math.min(100, Math.round((fcState.doneCount / fcState.totalInitial) * 100));
+
+  app.innerHTML = `
+    ${deckPills}
+
+    <div class="quiz-meta">
+      <span>Remaining: <b>${fcState.queue.length}</b> &middot; Mastered: ${fcState.doneCount}/${fcState.totalInitial}</span>
+      <button class="pill" style="min-height:32px;padding:4px 10px" onclick="undoFlashcard()" ${fcState.history.length ? "" : "disabled"}>
+        ↶ Undo
+      </button>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" style="width:${progressPct}%"></div>
+    </div>
+
+    <div class="fc-scene">
+      <div class="fc-card ${fcState.flipped ? "flipped" : ""}" id="fcCard" onclick="flipFlashcard()" role="button" tabindex="0" aria-label="Flashcard for ${escHtml(d.w)}. Click or press Space to flip.">
+        <!-- FRONT -->
+        <div class="fc-face fc-front">
+          <div class="fc-top">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="wc-num">#${d.n}</span>
+              <span class="pos-tag pos-${d.pos}">${d.pos}</span>
+            </div>
+            <div class="wc-actions">
+              <button class="btn-icon" onclick="event.stopPropagation();speakWord('${d.w}')" aria-label="Pronounce ${d.w}">${ICONS.audio}</button>
+              <button class="btn-icon ${starred ? "active-star" : ""}" onclick="event.stopPropagation();toggleStar('${d.w}')" aria-label="Star ${d.w}">${starred ? ICONS.starFill : ICONS.star}</button>
+            </div>
+          </div>
+          <div class="fc-center">
+            <div class="fc-front-word">${escHtml(d.w)}</div>
+          </div>
+          <div class="fc-hint">Tap card or press Space to reveal</div>
+        </div>
+
+        <!-- BACK -->
+        <div class="fc-face fc-back">
+          <div class="fc-top">
+            <div style="display:flex;align-items:center;gap:7px;">
+              <span class="wc-word" style="font-size:1.05rem">${escHtml(d.w)}</span>
+              <span class="pos-tag pos-${d.pos}">${d.pos}</span>
+            </div>
+            <div class="wc-actions">
+              <button class="btn-icon" onclick="event.stopPropagation();speakWord('${d.w}')" aria-label="Pronounce ${d.w}">${ICONS.audio}</button>
+              <button class="btn-icon ${starred ? "active-star" : ""}" onclick="event.stopPropagation();toggleStar('${d.w}')" aria-label="Star ${d.w}">${starred ? ICONS.starFill : ICONS.star}</button>
+            </div>
+          </div>
+          <div class="fc-center">
+            <p class="fc-back-meaning">${escHtml(d.m)}</p>
+            <p class="fc-back-sentence">${boldWord(d)}</p>
+            <div class="chip-row" style="justify-content:center;">
+              <span class="chip chip-syn"><span>SYN</span>${escHtml(d.syn.join(" · "))}</span>
+              <span class="chip chip-ant"><span>ANT</span>${escHtml(d.ant)}</span>
+            </div>
+          </div>
+          <div class="fc-hint">Rate below or use ← / → arrow keys</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-controls">
+      <button class="btn-danger" onclick="rateFlashcard(false)">← Still Learning</button>
+      <button class="btn-ok" onclick="rateFlashcard(true)">I Know It ✓ →</button>
+    </div>
+  `;
+}
+
+function flipFlashcard() {
+  fcState.flipped = !fcState.flipped;
+  const el = document.getElementById("fcCard");
+  if (el) el.classList.toggle("flipped", fcState.flipped);
+}
+
+function rateFlashcard(known) {
+  if (!fcState.queue.length) return;
+  const current = fcState.queue[0];
+  const prevKnown = isKnown(current.w);
+
+  // Save snapshot for Undo
+  fcState.history.push({
+    queue: fcState.queue.slice(),
+    doneCount: fcState.doneCount,
+    word: current.w,
+    prevKnown
+  });
+
+  fcState.queue.shift();
+  const meta = getWordMeta(current.w);
+
+  if (known) {
+    meta.k = true;
+    fcState.doneCount++;
+    touchStreak();
+  } else {
+    meta.k = false;
+    // Re-queue 3 positions ahead so the user reinforces it in this session
+    const insertAt = Math.min(3, fcState.queue.length);
+    fcState.queue.splice(insertAt, 0, current);
+    showToast(`"${current.w}" re-queued ${insertAt === 0 ? "next" : insertAt + " cards ahead"}`);
+  }
+
+  saveState();
+  updateDashboard();
+  fcState.flipped = false;
+  renderFlashcard();
+}
+
+function undoFlashcard() {
+  if (!fcState.history.length) return;
+  const snap = fcState.history.pop();
+  fcState.queue = snap.queue;
+  fcState.doneCount = snap.doneCount;
+  getWordMeta(snap.word).k = snap.prevKnown;
+  saveState();
+  updateDashboard();
+  fcState.flipped = false;
+  renderFlashcard();
+  showToast("Undid last card");
+}
+
+/* ==========================================================================
+   8. TAB 4: TENSES LAB & 2-MODE TENSES QUIZ
+   ========================================================================== */
+const TENSE_DEFS = [
+  { name: "Simple Present", formula: "V1  (He/She: V1 + s/es)", rule: "Habits, universal facts, and daily routines.", signals: ["always", "usually", "every day", "often", "seldom"] },
+  { name: "Present Continuous", formula: "am / is / are + V-ing", rule: "Action happening right now or around the current period.", signals: ["now", "right now", "at the moment", "look!", "currently"] },
+  { name: "Present Perfect", formula: "have / has + V3", rule: "Action finished in the past whose result connects to the present.", signals: ["just", "already", "yet", "ever", "never", "recently"] },
+  { name: "Present Perfect Continuous", formula: "have / has been + V-ing", rule: "Action that started in the past and is still continuing now.", signals: ["since", "for", "how long", "all morning"] },
+  { name: "Simple Past", formula: "V2  (Neg/Q: did + V1)", rule: "Completed action at a definite time in the past.", signals: ["yesterday", "ago", "last week", "in 2020"] },
+  { name: "Past Continuous", formula: "was / were + V-ing", rule: "Action that was in progress at a specific moment in the past.", signals: ["while", "when", "at 5 pm yesterday", "all evening"] },
+  { name: "Past Perfect", formula: "had + V3", rule: "The earlier of two completed past actions.", signals: ["before", "after", "by the time", "already"] },
+  { name: "Past Perfect Continuous", formula: "had been + V-ing", rule: "Ongoing action that continued up to another point in the past.", signals: ["for", "since", "before"] },
+  { name: "Simple Future", formula: "shall / will + V1", rule: "Action that will happen in the future, decisions, or predictions.", signals: ["tomorrow", "soon", "next week", "later"] },
+  { name: "Future Continuous", formula: "shall / will be + V-ing", rule: "Action that will be in progress at a specific future time.", signals: ["this time tomorrow", "at 5 pm tomorrow", "next Monday"] },
+  { name: "Future Perfect", formula: "shall / will have + V3", rule: "Action that will be completed before a specified future deadline.", signals: ["by tomorrow", "by next month", "by 2030", "before"] },
+  { name: "Future Perfect Continuous", formula: "shall / will have been + V-ing", rule: "Action that will have been continuing for a duration up to a future point.", signals: ["by next year", "for two hours", "by then"] }
+];
+
+const VERBS = {
+  speak: { v1: "speak", vs: "speaks", v2: "spoke", v3: "spoken", ving: "speaking", obj: "English", dur: "for an hour" },
+  love:  { v1: "love",  vs: "loves",  v2: "loved", v3: "loved",  ving: "loving",   obj: "this song", dur: "for weeks" },
+  write: { v1: "write", vs: "writes", v2: "wrote", v3: "written", ving: "writing", obj: "a letter", dur: "since morning" },
+  go:    { v1: "go",    vs: "goes",   v2: "went",  v3: "gone",   ving: "going",    obj: "to the gym", dur: "since January" },
+  eat:   { v1: "eat",   vs: "eats",   v2: "ate",   v3: "eaten",  ving: "eating",   obj: "lunch", dur: "for twenty minutes" },
+  play:  { v1: "play",  vs: "plays",  v2: "played", v3: "played", ving: "playing", obj: "cricket", dur: "for two hours" },
+  take:  { v1: "take",  vs: "takes",  v2: "took",  v3: "taken",  ving: "taking",   obj: "classes", dur: "since Monday" },
+  break: { v1: "break", vs: "breaks", v2: "broke", v3: "broken", ving: "breaking", obj: "records", dur: "for years" },
+  sing:  { v1: "sing",  vs: "sings",  v2: "sang",  v3: "sung",   ving: "singing",  obj: "a song", dur: "for ten minutes" }
+};
+
+const SUBJECTS = ["I", "You", "He/She", "We", "They"];
+const isThirdSing = s => s === "He/She" || s === "He";
+const auxBe = s => s === "I" ? "am" : isThirdSing(s) ? "is" : "are";
+const auxWas = s => (s === "I" || isThirdSing(s)) ? "was" : "were";
+const auxHave = s => isThirdSing(s) ? "has" : "have";
+const auxWill = s => (s === "I" || s === "We") ? "shall / will" : "will";
+
+function conjugate(tenseIdx, subj, v) {
+  switch (tenseIdx) {
+    case 0: return isThirdSing(subj) ? v.vs : v.v1;
+    case 1: return `${auxBe(subj)} ${v.ving}`;
+    case 2: return `${auxHave(subj)} ${v.v3}`;
+    case 3: return `${auxHave(subj)} been ${v.ving}`;
+    case 4: return v.v2;
+    case 5: return `${auxWas(subj)} ${v.ving}`;
+    case 6: return `had ${v.v3}`;
+    case 7: return `had been ${v.ving}`;
+    case 8: return `${auxWill(subj)} ${v.v1}`;
+    case 9: return `${auxWill(subj)} be ${v.ving}`;
+    case 10: return `${auxWill(subj)} have ${v.v3}`;
+    case 11: return `${auxWill(subj)} have been ${v.ving}`;
+    default: return v.v1;
+  }
+}
+
+function getStructures(tenseIdx, v) {
+  const o = v.obj;
+  const d = v.dur;
+  switch (tenseIdx) {
+    case 0: return { pos: `He ${v.vs} ${o}.`, neg: `He does not ${v.v1} ${o}.`, q: `Does he ${v.v1} ${o}?` };
+    case 1: return { pos: `He is ${v.ving} ${o}.`, neg: `He is not ${v.ving} ${o}.`, q: `Is he ${v.ving} ${o}?` };
+    case 2: return { pos: `He has ${v.v3} ${o}.`, neg: `He has not ${v.v3} ${o}.`, q: `Has he ${v.v3} ${o}?` };
+    case 3: return { pos: `He has been ${v.ving} ${o} ${d}.`, neg: `He has not been ${v.ving} ${o} ${d}.`, q: `Has he been ${v.ving} ${o} ${d}?` };
+    case 4: return { pos: `He ${v.v2} ${o}.`, neg: `He did not ${v.v1} ${o}.`, q: `Did he ${v.v1} ${o}?` };
+    case 5: return { pos: `He was ${v.ving} ${o}.`, neg: `He was not ${v.ving} ${o}.`, q: `Was he ${v.ving} ${o}?` };
+    case 6: return { pos: `He had ${v.v3} ${o}.`, neg: `He had not ${v.v3} ${o}.`, q: `Had he ${v.v3} ${o}?` };
+    case 7: return { pos: `He had been ${v.ving} ${o} ${d}.`, neg: `He had not been ${v.ving} ${o} ${d}.`, q: `Had he been ${v.ving} ${o} ${d}?` };
+    case 8: return { pos: `He will ${v.v1} ${o}.`, neg: `He will not ${v.v1} ${o}.`, q: `Will he ${v.v1} ${o}?` };
+    case 9: return { pos: `He will be ${v.ving} ${o}.`, neg: `He will not be ${v.ving} ${o}.`, q: `Will he be ${v.ving} ${o}?` };
+    case 10: return { pos: `He will have ${v.v3} ${o}.`, neg: `He will not have ${v.v3} ${o}.`, q: `Will he have ${v.v3} ${o}?` };
+    case 11: return { pos: `He will have been ${v.ving} ${o} ${d}.`, neg: `He will not have been ${v.ving} ${o} ${d}.`, q: `Will he have been ${v.ving} ${o} ${d}?` };
+  }
+}
+
+// SSC-Style Fill-in-the-Blank Tense Quiz Bank (16 high-yield exam items)
+const TENSE_FILL_BANK = [
+  { s: "She _____ for the SSC exam since January.", ans: "has been preparing", ops: ["prepares", "prepared", "has been preparing", "is preparing"], tense: "Present Perfect Continuous", exp: "The signal word 'since January' shows an action that started in the past and continues now → has/have been + V-ing." },
+  { s: "The train _____ before we reached the station.", ans: "had left", ops: ["left", "has left", "had left", "was leaving"], tense: "Past Perfect", exp: "When two past actions occur, the earlier action uses Past Perfect (had + V3), while the later uses Simple Past ('reached')." },
+  { s: "Look! The children _____ in the rain right now.", ans: "are playing", ops: ["play", "are playing", "played", "have played"], tense: "Present Continuous", exp: "'Look!' and 'right now' indicate an action happening at the moment of speaking → is/am/are + V-ing." },
+  { s: "We _____ the museum yesterday afternoon.", ans: "visited", ops: ["visit", "have visited", "visited", "had visited"], tense: "Simple Past", exp: "'Yesterday' marks a finished past time. Never use Present Perfect with definite past time markers → Simple Past (V2)." },
+  { s: "By next Friday, they _____ the entire syllabus.", ans: "will have completed", ops: ["will complete", "will have completed", "completed", "are completing"], tense: "Future Perfect", exp: "'By next Friday' signals completion before a future deadline → will have + V3." },
+  { s: "The sun _____ in the east.", ans: "rises", ops: ["is rising", "rose", "rises", "has risen"], tense: "Simple Present", exp: "Universal truths and scientific facts always use Simple Present (V1 + s/es for singular subjects)." },
+  { s: "While I _____ dinner, the lights suddenly went out.", ans: "was cooking", ops: ["cooked", "was cooking", "had cooked", "am cooking"], tense: "Past Continuous", exp: "'While' introduces an ongoing background action interrupted by a short Simple Past action ('went out') → was/were + V-ing." },
+  { s: "He _____ already _____ his assignment.", ans: "has / submitted", ops: ["has / submitted", "did / submit", "is / submitting", "will / submit"], tense: "Present Perfect", exp: "The signal word 'already' with present relevance takes Present Perfect → has/have + V3." },
+  { s: "At 8 pm tomorrow, she _____ a live seminar.", ans: "will be attending", ops: ["attends", "will be attending", "has attended", "attended"], tense: "Future Continuous", exp: "'At 8 pm tomorrow' refers to an action in progress at a specific future moment → will be + V-ing." },
+  { s: "Did he _____ the truth to the committee?", ans: "speak", ops: ["spoke", "spoken", "speak", "speaks"], tense: "Simple Past (Interrogative)", exp: "Classic SSC trap: after 'did', always use the base form of the verb (V1), never V2." },
+  { s: "By the time the doctor arrived, the patient _____.", ans: "had recovered", ops: ["recovered", "had recovered", "has recovered", "recovers"], tense: "Past Perfect", exp: "'By the time + Simple Past' pairs with Past Perfect (had + V3) for the action completed earlier." },
+  { s: "They _____ in Delhi for five years before they moved to Pune.", ans: "had been living", ops: ["have been living", "had been living", "lived", "are living"], tense: "Past Perfect Continuous", exp: "Duration ('for five years') continuing up to a past event ('before they moved') → had been + V-ing." },
+  { s: "Rohan usually _____ to work by metro.", ans: "goes", ops: ["go", "goes", "is going", "went"], tense: "Simple Present", exp: "'Usually' indicates a regular habit; singular subject 'Rohan' takes V1 + es ('goes')." },
+  { s: "By 2028, she _____ at this institute for ten years.", ans: "will have been teaching", ops: ["will teach", "will be teaching", "will have been teaching", "teaches"], tense: "Future Perfect Continuous", exp: "'By 2028' + duration ('for ten years') takes Future Perfect Continuous → will have been + V-ing." },
+  { s: "Have you ever _____ a classical song on stage?", ans: "sung", ops: ["sing", "sang", "sung", "singing"], tense: "Present Perfect", exp: "'Have + ever' requires the past participle (V3) → sing / sang / sung." },
+  { s: "She has not _____ to me since last Monday.", ans: "spoken", ops: ["speak", "spoke", "spoken", "speaking"], tense: "Present Perfect", exp: "After 'has/have', always use V3 ('spoken'). 'Since last Monday' connects past to present." }
+];
+
+const tenseState = {
+  group: 0, // 0=Present, 1=Past, 2=Future
+  verb: "speak"
+};
+
+function renderTensesLab() {
+  quiz = null;
+  const v = VERBS[tenseState.verb];
+  const groupOrder = [
+    { idx: 1, label: "Past" },
+    { idx: 0, label: "Present" },
+    { idx: 2, label: "Future" }
+  ];
+
+  const cardsHtml = [0, 1, 2, 3].map(k => {
+    const tIdx = tenseState.group * 4 + k;
+    const def = TENSE_DEFS[tIdx];
+    const st = getStructures(tIdx, v);
+    return `
+      <div class="panel">
+        <div class="wc-title-group" style="margin-bottom:2px">
+          <span class="wc-num">${tIdx + 1} / 12</span>
+          <span class="wc-word" style="font-size:1.12rem">${def.name} Tense</span>
+        </div>
+        <div class="formula-badge">${def.formula}</div>
+        <p style="margin:2px 0 8px;font-size:0.93rem;">${def.rule}</p>
+
+        <div class="signal-row">
+          ${def.signals.map(sig => `<span class="signal-pill">${escHtml(sig)}</span>`).join("")}
+        </div>
+
+        <div class="struct-list">
+          <div class="struct-row"><span class="struct-tag tag-pos">+</span><span>${escHtml(st.pos)}</span></div>
+          <div class="struct-row"><span class="struct-tag tag-neg">−</span><span>${escHtml(st.neg)}</span></div>
+          <div class="struct-row"><span class="struct-tag tag-int">?</span><span>${escHtml(st.q)}</span></div>
+        </div>
+
+        <table class="conj-table" aria-label="${def.name} conjugation table">
+          ${SUBJECTS.map(s => `<tr><td>${s}</td><td>${escHtml(conjugate(tIdx, s, v))}</td></tr>`).join("")}
+        </table>
+      </div>
+    `;
+  }).join("");
+
+  app.innerHTML = `
+    <div class="panel">
+      <div class="wc-word" style="margin-bottom:4px;">What is a Tense?</div>
+      <p style="margin:0 0 6px;font-size:0.94rem;">
+        Tense is the form of a verb that shows the <b>time</b> and <b>state</b> of an action.
+        There are <b>3 main times</b> (Past, Present, Future) &times; <b>4 aspects</b> = <b>12 tenses</b>.
+      </p>
+      <div class="timeline" aria-label="Interactive Tense Timeline">
+        ${groupOrder.map(g => `
+          <button class="tl-node ${tenseState.group === g.idx ? "active" : ""}" onclick="setTenseGroup(${g.idx})">
+            <span class="tl-dot"></span>
+            <span class="tl-label">${g.label}</span>
+          </button>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="setup-label" style="margin-bottom:6px;"><span>Select Time Group</span></div>
+      <div class="seg-grid" style="margin-bottom:14px;">
+        ${["Present", "Past", "Future"].map((label, idx) => `
+          <button class="seg-btn ${tenseState.group === idx ? "active" : ""}" onclick="setTenseGroup(${idx})">${label}</button>
+        `).join("")}
+      </div>
+
+      <div class="setup-label" style="margin-bottom:6px;"><span>Select Verb</span></div>
+      <div class="pill-row" style="margin-bottom:0;">
+        ${Object.keys(VERBS).map(vk => `
+          <button class="pill ${tenseState.verb === vk ? "active" : ""}" onclick="setTenseVerb('${vk}')">${vk}</button>
+        `).join("")}
+      </div>
+
+      <div class="verb-forms-strip">
+        <span class="vf-item"><span>V1</span><b>${v.v1}</b></span>
+        <span class="vf-item"><span>V2</span><b>${v.v2}</b></span>
+        <span class="vf-item"><span>V3</span><b>${v.v3}</b></span>
+        <span class="vf-item"><span>V-ing</span><b>${v.ving}</b></span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="setup-label" style="margin-bottom:8px;"><span>Practice Tenses (10 Questions)</span></div>
+      <div class="tense-quiz-cta">
+        <button class="btn-primary" onclick="startTenseQuiz('identify')">🎯 Identify the Tense</button>
+        <button class="btn-ok" onclick="startTenseQuiz('fill')">✍️ Fill Correct Verb Form</button>
+      </div>
+    </div>
+
+    ${cardsHtml}
+  `;
+}
+
+function setTenseGroup(g) {
+  tenseState.group = g;
+  renderTensesLab();
+}
+
+function setTenseVerb(v) {
+  tenseState.verb = v;
+  renderTensesLab();
+}
+
+function startTenseQuiz(mode) {
+  let questions = [];
+  if (mode === "identify") {
+    const verbKeys = Object.keys(VERBS);
+    const subjList = ["I", "You", "He", "We", "They"];
+    for (let k = 0; k < 10; k++) {
+      const tIdx = Math.floor(Math.random() * 12);
+      const subj = subjList[Math.floor(Math.random() * subjList.length)];
+      const v = VERBS[verbKeys[Math.floor(Math.random() * verbKeys.length)]];
+      const phrase = `${subj} ${conjugate(tIdx, subj, v)} ${v.obj}`;
+      const distractors = shuffle([...Array(12).keys()].filter(x => x !== tIdx)).slice(0, 3);
+      const options = shuffle([tIdx, ...distractors]);
+      questions.push({ mode: "identify", tIdx, phrase, options });
+    }
+  } else {
+    questions = shuffle(TENSE_FILL_BANK).slice(0, 10).map(item => ({
+      mode: "fill",
+      ...item,
+      options: shuffle(item.ops)
+    }));
+  }
+
+  quiz = {
+    kind: "tense",
+    mode,
+    questions,
+    idx: 0,
+    score: 0,
+    answered: false
+  };
+  renderTenseQuestion();
+}
+
+function renderTenseQuestion() {
+  if (!quiz || quiz.kind !== "tense") return;
+  if (quiz.idx >= quiz.questions.length) {
+    renderTenseResult();
+    return;
+  }
+
+  quiz.answered = false;
+  const q = quiz.questions[quiz.idx];
+  const pct = (quiz.idx / quiz.questions.length) * 100;
+
+  const promptHtml = q.mode === "identify"
+    ? `<div style="font-size:0.84rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Identify the tense</div>
+       <div class="quiz-word-big" style="font-size:1.3rem;">“${escHtml(q.phrase)}”</div>`
+    : `<div style="font-size:0.84rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Choose the correct verb form</div>
+       <div style="font-size:1.15rem;font-weight:700;line-height:1.5;">${escHtml(q.s).replace(/_____/g, '<span class="blank-slot">_____</span>')}</div>`;
+
+  app.innerHTML = `
+    <div class="quiz-meta">
+      <span>${q.mode === "identify" ? "Identify Tense" : "Fill Verb Form"} &middot; Q${quiz.idx + 1} / ${quiz.questions.length}</span>
+      <span class="q-pill">Score: ${quiz.score}</span>
+    </div>
+    <div class="progress-track" style="margin-bottom:14px;">
+      <div class="progress-fill" style="width:${pct}%"></div>
+    </div>
+
+    <div class="panel">
+      <div class="quiz-prompt">${promptHtml}</div>
+      <div class="opt-list">
+        ${q.options.map((opt, idx) => `
+          <button class="opt-btn" id="qopt-${idx}" onclick="answerTense(${idx})">
+            <span class="opt-key">${idx + 1}</span>
+            <span>${escHtml(q.mode === "identify" ? TENSE_DEFS[opt].name + " Tense" : opt)}</span>
+          </button>
+        `).join("")}
+      </div>
+    </div>
+    <div id="quizFeedback"></div>
+  `;
+}
+
+function answerTense(choiceIdx) {
+  if (!quiz || quiz.kind !== "tense" || quiz.answered) return;
+  quiz.answered = true;
+  touchStreak();
+  updateDashboard();
+
+  const q = quiz.questions[quiz.idx];
+  const isCorrect = q.mode === "identify"
+    ? q.options[choiceIdx] === q.tIdx
+    : q.options[choiceIdx] === q.ans;
+
+  q.options.forEach((opt, idx) => {
+    const btn = document.getElementById("qopt-" + idx);
+    if (!btn) return;
+    btn.disabled = true;
+    const right = q.mode === "identify" ? opt === q.tIdx : opt === q.ans;
+    if (right) btn.classList.add("is-correct");
+    else if (idx === choiceIdx) btn.classList.add("is-wrong");
+  });
+
+  if (isCorrect) quiz.score++;
+
+  const fbBody = q.mode === "identify"
+    ? `<div class="wc-word" style="font-size:1.05rem">${TENSE_DEFS[q.tIdx].name} Tense</div>
+       <div class="formula-badge">${TENSE_DEFS[q.tIdx].formula}</div>
+       <p style="margin:4px 0 12px;font-size:0.9rem;color:var(--text-muted);">${TENSE_DEFS[q.tIdx].rule}</p>`
+    : `<div class="wc-word" style="font-size:1.02rem;margin-bottom:4px;">Answer: ${escHtml(q.ans)} <span class="pos-tag pos-Verb" style="margin-left:6px">${escHtml(q.tense)}</span></div>
+       <p style="margin:4px 0 12px;font-size:0.9rem;color:var(--text-muted);">${escHtml(q.exp)}</p>`;
+
+  document.getElementById("quizFeedback").innerHTML = `
+    <div class="panel feedback-card ${isCorrect ? "ok" : "no"}">
+      <div style="font-weight:800;margin-bottom:6px;color:${isCorrect ? "var(--ok)" : "var(--no)"}">${isCorrect ? "Correct! ✓" : "Incorrect ✕"}</div>
+      ${fbBody}
+      <button class="btn-primary" style="width:100%" onclick="nextTenseQuestion()">
+        ${quiz.idx + 1 < quiz.questions.length ? "Next Question (Enter) →" : "See Result (Enter)"}
+      </button>
+    </div>
+  `;
+}
+
+function nextTenseQuestion() {
+  if (!quiz || quiz.kind !== "tense") return;
+  quiz.idx++;
+  renderTenseQuestion();
+}
+
+function renderTenseResult() {
+  const total = quiz.questions.length;
+  const pct = Math.round((quiz.score / total) * 100);
+  const circ = 2 * Math.PI * 56;
+  const offset = circ * (1 - pct / 100);
+
+  app.innerHTML = `
+    <div class="panel">
+      <div class="result-hero">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 132 132">
+            <circle class="ring-bg" cx="66" cy="66" r="56"/>
+            <circle class="ring-fg" id="resRingFg" cx="66" cy="66" r="56"
+              stroke-dasharray="${circ}" stroke-dashoffset="${circ}"
+              style="stroke:${pct >= 80 ? "var(--ok)" : pct >= 50 ? "var(--accent-solid)" : "var(--no)"}"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-pct">${pct}%</span>
+            <span class="ring-sub">${quiz.score} / ${total}</span>
+          </div>
+        </div>
+        <h2 style="margin:0 0 6px;">${pct >= 80 ? "Grammar Pro! 🎉" : pct >= 50 ? "Good job! Keep practicing 👍" : "Review the formulas and retry 💪"}</h2>
+      </div>
+      <div class="row-actions" style="margin-top:12px;">
+        <button class="btn-primary" onclick="startTenseQuiz('${quiz.mode}')">Practice Again</button>
+        <button class="btn-ok" onclick="startTenseQuiz('${quiz.mode === "identify" ? "fill" : "identify"}')">Try ${quiz.mode === "identify" ? "Fill Blanks" : "Identify Mode"}</button>
+        <button onclick="renderTensesLab()">Back to Lessons</button>
+      </div>
+    </div>
+  `;
+
+  requestAnimationFrame(() => {
+    const fg = document.getElementById("resRingFg");
+    if (fg) fg.style.strokeDashoffset = offset;
+  });
+
+  if (pct >= 80) launchConfetti();
+}
+
+/* ==========================================================================
+   9. GLOBAL KEYBOARD SHORTCUTS
+   ========================================================================== */
+document.addEventListener("keydown", e => {
+  const modalOpen = document.getElementById("settingsModal").classList.contains("open");
+  if (modalOpen) {
+    if (e.key === "Escape") closeSettings();
+    return;
+  }
+
+  const tag = document.activeElement ? document.activeElement.tagName : "";
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+  // Quiz shortcuts (Vocab or Tenses)
+  if (quiz && quiz.idx < quiz.questions.length) {
+    if (!quiz.answered && ["1", "2", "3", "4"].includes(e.key)) {
+      e.preventDefault();
+      const idx = Number(e.key) - 1;
+      if (quiz.kind === "vocab") answerVocab(idx);
+      else answerTense(idx);
+    } else if (quiz.answered && e.key === "Enter") {
+      e.preventDefault();
+      if (quiz.kind === "vocab") nextVocabQuestion();
+      else nextTenseQuestion();
+    }
+    return;
+  }
+
+  // Flashcard shortcuts
+  if (activeTab === "cards" && fcState.queue.length > 0) {
+    if (e.code === "Space") {
+      e.preventDefault();
+      flipFlashcard();
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      rateFlashcard(false);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      rateFlashcard(true);
+    }
+  }
+});
+
+/* ==========================================================================
+   10. BOOTSTRAP
+   ========================================================================== */
+loadState();
+applyTheme();
+updateDashboard();
+renderLearn();
+</script>
+</body>
+</html>
