@@ -46,8 +46,11 @@ u{display:block;text-decoration:none;color:var(--accent);font-size:.9rem}
 .dash{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px 14px;margin-bottom:12px}
 .dtop{display:flex;justify-content:space-between;font-size:.9rem;color:var(--text-muted);margin-bottom:8px}.dtop b{color:var(--text)}
 .track{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#2dd4bf)}
-</style></head><body>
+
+.install-actions{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;max-width:960px;margin:0 auto;padding:8px 16px 2px}.install-actions a,.install-actions button{border:1px solid var(--border);background:var(--surface);color:var(--text);padding:8px 12px;border-radius:12px;font:inherit;font-size:.88rem;font-weight:650;text-decoration:none;cursor:pointer}.install-actions a:hover,.install-actions button:hover{background:var(--surface-hover)}.install-help{color:var(--text-muted);font-size:.78rem}
+</style><meta name="theme-color" content="#0f1221"><link rel="manifest" href="./site.webmanifest"></head><body>
 <header class="topbar"><div class="brand"><div class="logo" aria-hidden="true">EN</div><div><h1>English Study Hub</h1><div class="sub">Words · Grammar · Quizzes · SSC Vocab</div></div></div><button id="themeBtn" class="ibtn" aria-label="Toggle theme" title="Toggle theme">☀</button></header>
+<div class="install-actions" aria-label="Download or install this app"><a href="./EnglishStudySheets.html" download="EnglishStudySheets.html">Download HTML</a><button type="button" id="installAppBtn">Install app</button><span class="install-help">If no prompt appears, use your browser menu → Add to Home screen.</span></div>
 <nav id="nav"></nav>
 <main><input id="q" placeholder="Search…" type="search"><div id="out"></div></main>
 <script>
@@ -261,5 +264,10 @@ var TH="dark";try{TH=localStorage.getItem("theme")||"dark"}catch(e){}
 function setTheme(t){TH=t;document.documentElement.setAttribute("data-theme",t);document.getElementById("themeBtn").textContent=t=="dark"?"\u2600":"\u263e";try{localStorage.setItem("theme",t)}catch(e){}}
 document.getElementById("themeBtn").onclick=function(){setTheme(TH=="dark"?"light":"dark")};
 setTheme(TH);
+var installPromptEvent=null,installButton=document.getElementById("installAppBtn");
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();installPromptEvent=e;});
+installButton.addEventListener("click",async function(){if(installPromptEvent){installPromptEvent.prompt();await installPromptEvent.userChoice;installPromptEvent=null;}else{alert("To install: open your browser menu and choose Install app or Add to Home screen. On iPhone/iPad, use Share → Add to Home Screen.");}});
+window.addEventListener("appinstalled",function(){installButton.textContent="Installed";installButton.disabled=true;});
+if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("./service-worker.js").catch(function(){});});
 q.oninput=render;render();
 </script></body></html>
