@@ -1,10 +1,13 @@
-const CACHE_NAME = "english-study-sheets-v1";
+const CACHE_NAME = "english-study-sheets-v2";
 const APP_FILES = [
   "./",
   "./EnglishStudySheets.html",
   "./site.webmanifest",
   "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./icons/icon-512.png",
+  "./icons/english-mark.png",
+  "./icons/favicon-32.png",
+  "./icons/apple-touch-icon.png"
 ];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_FILES)).then(() => self.skipWaiting()));
