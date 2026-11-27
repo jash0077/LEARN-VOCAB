@@ -10,7 +10,7 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);background-image:var(--bg-grad);background-attachment:fixed;color:var(--text);font:16px/1.5 var(--font);min-height:100vh}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:960px;margin:auto;padding:16px 16px 6px}
 .brand{display:flex;align-items:center;gap:12px}
-.logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,#6366f1,#2dd4bf);box-shadow:var(--shadow)}
+.logo{width:48px;height:48px;border-radius:12px;display:block;object-fit:contain;padding:1px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
 h1{margin:0;font-size:1.2rem;line-height:1.2}.sub{color:var(--text-muted);font-size:.8rem}
 .ibtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:1.1rem;cursor:pointer}
 nav{display:flex;gap:8px;overflow-x:auto;padding:10px 16px;max-width:960px;margin:auto;scrollbar-width:thin}
@@ -48,8 +48,8 @@ u{display:block;text-decoration:none;color:var(--accent);font-size:.9rem}
 .track{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#2dd4bf)}
 
 .install-actions{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;max-width:960px;margin:0 auto;padding:8px 16px 2px}.install-actions a,.install-actions button{border:1px solid var(--border);background:var(--surface);color:var(--text);padding:8px 12px;border-radius:12px;font:inherit;font-size:.88rem;font-weight:650;text-decoration:none;cursor:pointer}.install-actions a:hover,.install-actions button:hover{background:var(--surface-hover)}.install-help{color:var(--text-muted);font-size:.78rem}
-</style><meta name="theme-color" content="#0f1221"><link rel="manifest" href="./site.webmanifest"></head><body>
-<header class="topbar"><div class="brand"><div class="logo" aria-hidden="true">EN</div><div><h1>English Study Hub</h1><div class="sub">Words · Grammar · Quizzes · SSC Vocab</div></div></div><button id="themeBtn" class="ibtn" aria-label="Toggle theme" title="Toggle theme">☀</button></header>
+</style><meta name="theme-color" content="#0f1221"><link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png"><link rel="apple-touch-icon" href="./icons/apple-touch-icon.png"><link rel="manifest" href="./site.webmanifest"></head><body>
+<header class="topbar"><div class="brand"><img class="logo" src="./icons/english-mark.png" alt="" aria-hidden="true"><div><h1>English Study Hub</h1><div class="sub">Words · Grammar · Quizzes · SSC Vocab</div></div></div><button id="themeBtn" class="ibtn" aria-label="Toggle theme" title="Toggle theme">☀</button></header>
 <div class="install-actions" aria-label="Download or install this app"><button type="button" id="installAppBtn">Install app</button><span class="install-help">If no prompt appears, use your browser menu → Add to Home screen.</span></div>
 <nav id="nav"></nav>
 <main><input id="q" placeholder="Search…" type="search"><div id="out"></div></main>
